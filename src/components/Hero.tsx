@@ -9,9 +9,9 @@ interface HeroProps {
 export default function Hero({ language }: HeroProps) {
   const content = {
     fr: {
-      badge: 'Consultant réglementé du Canada',
+      badge: 'MIMBIMMIGRATION CONSULTANCY INC.',
       title: 'Immigration réglementée, confiance garantie.',
-      subtitle: 'MIMBIMMIGRATION CONSULTANCY INC.',
+      subtitle: 'Consultant réglementé du Canada',
       description:
         'Accompagnement structuré, sérieux et conforme aux normes canadiennes pour transformer vos projets en réalité. Nous défendons vos intérêts avec la rigueur d\'un cabinet corporate.',
       highlights: ['Confiance', 'Professionnalisme', 'Immigration réglementée'],
@@ -26,9 +26,9 @@ export default function Hero({ language }: HeroProps) {
       ],
     },
     en: {
-      badge: 'Regulated Canadian Consultant',
+      badge: 'MIMBIMMIGRATION CONSULTANCY INC.',
       title: 'Regulated immigration, trust assured.',
-      subtitle: 'MIMBIMMIGRATION CONSULTANCY INC.',
+      subtitle: 'Regulated Canadian Consultant',
       description:
         'Structured, corporate-grade guidance that keeps every file compliant and every family confident. We secure your future in Canada with rigour and clarity.',
       highlights: ['Trust', 'Professionalism', 'Regulated expertise'],
@@ -56,11 +56,11 @@ export default function Hero({ language }: HeroProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-brand-light uppercase tracking-[0.3em] text-xs">
+            <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-brand-light uppercase font-bold tracking-[0.4em]  text-sm sm:text-base">
               {content[language].badge}
             </span>
             <div className="space-y-3">
-              <p className="text-white font-bold tracking-[0.4em] text-sm sm:text-base uppercase">
+              <p className="text-white tracking-[0.3em]  text-sm sm:text-base text-xs uppercase">
                 {content[language].subtitle}
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">

@@ -45,7 +45,7 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
         className={
           variant === 'desktop'
             ? 'text-white/70 hover:text-white transition-colors text-sm tracking-wide'
-            : 'w-full text-left text-white/80 hover:text-white py-2'
+            : 'w-full px-3 py-3 text-left text-white/80 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition-colors text-sm font-semibold'
         }
       >
         {item.label}
@@ -67,27 +67,22 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-navy/90 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0 flex flex-col gap-1">
-            <span className="text-xs sm:text-sm font-bold tracking-[0.5em] text-white uppercase">
-              MIMBIMMIGRATION CONSULTANCY INC.
-            </span>
-            <div className="flex items-center gap-3">
-              <img
-                src={CricLogo}
-                alt="CRIC-CISR"
-                className="h-10 w-auto drop-shadow-lg"
-                loading="lazy"
-              />
-              <div className="hidden sm:flex flex-col leading-tight">
-                <span className="text-sm font-semibold tracking-[0.6em] text-white">
-                  CRIC-CISR
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.4em] text-white/60">
-                  {language === 'fr'
-                    ? 'Consultant réglementé'
-                    : 'Regulated consultant'}
-                </span>
-              </div>
+          <div className="flex-shrink-0 flex items-center gap-3">
+            <img
+              src={CricLogo}
+              alt="CRIC-CISR"
+              className="h-10 w-auto drop-shadow-lg"
+              loading="lazy"
+            />
+            <div className="hidden sm:flex flex-col leading-tight">
+              <span className="text-sm font-semibold tracking-[0.6em] text-white">
+                CRIC-CISR
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-white/60">
+                {language === 'fr'
+                  ? 'Consultant réglementé'
+                  : 'Regulated consultant'}
+              </span>
             </div>
           </div>
 
@@ -112,8 +107,14 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
 
       {isMenuOpen && (
         <div className="md:hidden bg-brand-navy border-t border-white/10">
-          <div className="px-4 py-4 space-y-3">
-            <div className="flex flex-col space-y-3">{renderLinks('mobile')}</div>
+          <div className="px-4 py-6 space-y-5">
+            <div className="grid grid-cols-2 gap-3">{renderLinks('mobile')}</div>
+            <button
+              onClick={() => scrollToSection('#appointment')}
+              className="w-full px-4 py-3 rounded-2xl bg-brand-red text-white font-semibold hover:bg-white hover:text-brand-navy transition-colors"
+            >
+              {language === 'fr' ? 'Prendre rendez-vous' : 'Book a consultation'}
+            </button>
             <LanguageToggle variant="mobile" />
           </div>
         </div>
