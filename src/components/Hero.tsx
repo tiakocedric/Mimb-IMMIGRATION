@@ -18,7 +18,7 @@ export default function Hero({ language }: HeroProps) {
       ctaAppointment: 'Planifier une consultation',
       ctaContact: 'Parler à un expert',
       advisor: 'Mimb Franklin',
-      advisorRole: 'Consultant RCIC',
+      advisorRole: 'Consultant CRIC',
       stats: [
         { value: '98%', label: 'Clients satisfaits' },
         { value: '15+', label: 'Programmes d\'immigration' },
@@ -35,7 +35,7 @@ export default function Hero({ language }: HeroProps) {
       ctaAppointment: 'Schedule a consultation',
       ctaContact: 'Speak with an expert',
       advisor: 'Mimb Franklin',
-      advisorRole: 'RCIC Consultant',
+      advisorRole: 'CISR Consultant',
       stats: [
         { value: '98%', label: 'Satisfied clients' },
         { value: '15+', label: 'Immigration streams' },
