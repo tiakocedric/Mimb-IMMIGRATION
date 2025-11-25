@@ -60,25 +60,11 @@ export default function Hero({ language }: HeroProps) {
               {content[language].badge}
             </span>
             <div className="space-y-3">
-              <p className="text-white tracking-[0.3em]  text-sm sm:text-base text-xs uppercase">
-                {content[language].subtitle}
-              </p>
+        
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">
                 {content[language].title}
               </h1>
-              <div className="flex items-center gap-4">
-                <img
-                  src={CricLogo}
-                  alt="CRIC-CISR"
-                  className="h-14 w-auto drop-shadow-lg"
-                  loading="lazy"
-                />
-                <div className="text-[11px] uppercase tracking-[0.4em] text-brand-light/70">
-                  {language === 'fr'
-                    ? 'Consultant réglementé en immigration canadienne'
-                    : 'Regulated Canadian immigration consultant'}
-                </div>
-              </div>
+         
             </div>
             <p className="text-lg text-brand-light/80 leading-relaxed max-w-2xl">
               {content[language].description}
