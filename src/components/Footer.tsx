@@ -11,14 +11,14 @@ export default function Footer({ language }: FooterProps) {
       quickLinks: 'Liens rapides',
       links: [
         { label: 'Accueil', href: '#home' },
-        { label: 'A? propos', href: '#about' },
+        { label: 'À propos', href: '#about' },
         { label: 'Services', href: '#services' },
-        { label: 'TAcmoignages', href: '#testimonials' },
+        { label: 'Témoignages', href: '#testimonials' },
         { label: 'FAQ', href: '#faq' },
         { label: 'Contact', href: '#contact' },
       ],
-      rights: 'Tous droits reserves.',
-      designedBy: 'Site conAu par',
+      rights: 'Tous droits réservés.',
+      designedBy: 'Site conçu par',
     },
     en: {
       contact: 'Contact',
@@ -53,12 +53,12 @@ export default function Footer({ language }: FooterProps) {
             </h3>
             <p className="text-white/70">
               {language === 'fr'
-                ? 'Cabinet corporate, consultant reglemente en immigration canadienne.'
+                ? 'Cabinet corporate, consultant réglementé en immigration canadienne.'
                 : 'Corporate advisory, regulated Canadian immigration consultant.'}
             </p>
             <p className="text-white/60 uppercase tracking-[0.4em] text-xs">
               {language === 'fr'
-                ? 'Confiance . Professionnalisme . Reglementation'
+                ? 'Confiance . Professionnalisme . Réglementation'
                 : 'Trust . Professionalism . Regulation'}
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function Footer({ language }: FooterProps) {
                 <span className="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center">
                   <MapPin size={18} />
                 </span>
-                <span>Montreal, Quebec, Canada</span>
+                <span>Montréal, Québec, Canada</span>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function Footer({ language }: FooterProps) {
         <div className="border-t border-white/15 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-white/70 text-sm">
             <p className="text-center md:text-left">
-              Ac {new Date().getFullYear()} MIMBIMMIGRATION CONSULTANCY INC.{' '}
+              © {new Date().getFullYear()} MIMBIMMIGRATION CONSULTANCY INC.{' '}
               {content[language].rights}
             </p>
             <a

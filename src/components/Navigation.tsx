@@ -13,9 +13,9 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
   const navItems = {
     fr: [
       { label: 'Accueil', href: '#home' },
-      { label: 'A? propos', href: '#about' },
+      { label: 'À propos', href: '#about' },
       { label: 'Services', href: '#services' },
-      { label: 'TAcmoignages', href: '#testimonials' },
+      { label: 'Témoignages', href: '#testimonials' },
       { label: 'FAQ', href: '#faq' },
       { label: 'Contact', href: '#contact' },
     ],
@@ -67,22 +67,27 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-navy/90 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0 flex items-center gap-3">
-            <img
-              src={CricLogo}
-              alt="CRIC-CISR"
-              className="h-10 w-auto drop-shadow-lg"
-              loading="lazy"
-            />
-            <div className="hidden sm:flex flex-col leading-tight">
-              <span className="text-sm font-semibold tracking-[0.6em] text-white">
-                CRIC-CISR
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.4em] text-white/60">
-                {language === 'fr'
-                  ? 'Consultant réglementé'
-                  : 'Regulated consultant'}
-              </span>
+          <div className="flex-shrink-0 flex flex-col gap-1">
+            <span className="text-xs sm:text-sm font-bold tracking-[0.5em] text-white uppercase">
+              MIMBIMMIGRATION CONSULTANCY INC.
+            </span>
+            <div className="flex items-center gap-3">
+              <img
+                src={CricLogo}
+                alt="CRIC-CISR"
+                className="h-10 w-auto drop-shadow-lg"
+                loading="lazy"
+              />
+              <div className="hidden sm:flex flex-col leading-tight">
+                <span className="text-sm font-semibold tracking-[0.6em] text-white">
+                  CRIC-CISR
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.4em] text-white/60">
+                  {language === 'fr'
+                    ? 'Consultant réglementé'
+                    : 'Regulated consultant'}
+                </span>
+              </div>
             </div>
           </div>
 

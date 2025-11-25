@@ -8,42 +8,42 @@ export default function Services({ language }: ServicesProps) {
   const content = {
     fr: {
       title: 'Solutions corporate pour chaque programme',
-      subtitle: 'Stratege dedie, controle de conformite et suivi proactif.',
+      subtitle: 'Stratège dédié, contrôle de conformité et suivi proactif.',
       cta: 'Planifier une consultation',
       guarantees: [
-        'Analyse complete du dossier',
-        'Documents prepares et verifies',
+        'Analyse complète du dossier',
+        'Documents préparés et vérifiés',
         'Relation bilingue FR/EN',
       ],
       services: [
         {
           icon: Home,
-          title: 'Residence permanente',
+          title: 'Résidence permanente',
           description:
-            'Planification Express Entry, travailleurs qualifies, parrainage familial et programmes provinciaux.',
+            'Planification Entrée Express, travailleurs qualifiés, parrainage familial et programmes provinciaux.',
         },
         {
           icon: Briefcase,
           title: 'Permis de travail',
           description:
-            'EIMT, mobilite francophone, transferts intra-entreprises et permis ouverts.',
+            'EIMT, mobilité francophone, transferts intra-entreprises et permis ouverts.',
         },
         {
           icon: GraduationCap,
-          title: 'Permis d\'etudes',
+          title: 'Permis d\'études',
           description:
-            'Strategie CAQ, permis d\'etudes, permis post-diplome et changements de statut.',
+            'Stratégie CAQ, permis d\'études, permis post-diplôme et changements de statut.',
         },
         {
           icon: Plane,
           title: 'Visas visiteurs',
           description:
-            'Visas visiteurs, super visas, prolongations de sejour et restaurations de statut.',
+            'Visas visiteurs, super visas, prolongations de séjour et restaurations de statut.',
         },
         {
           icon: Heart,
           title: 'Protection et asile',
-          description: 'Demandes d\'asile, statuts de refugies et mesures de protection.',
+          description: 'Demandes d\'asile, statuts de réfugiés et mesures de protection.',
         },
       ],
     },
@@ -144,7 +144,7 @@ export default function Services({ language }: ServicesProps) {
                 <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
                 <p className="text-brand-light/80">{service.description}</p>
                 <div className="mt-auto pt-4 text-sm text-brand-light/60 uppercase tracking-[0.4em]">
-                  {language === 'fr' ? 'Reglemente' : 'Regulated'}
+                  {language === 'fr' ? 'Réglementé' : 'Regulated'}
                 </div>
               </div>
             ))}

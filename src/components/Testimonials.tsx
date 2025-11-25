@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { Testimonial } from '../types';
@@ -146,3 +146,4 @@ export default function Testimonials({ language }: TestimonialsProps) {
     </section>
   );
 }
+

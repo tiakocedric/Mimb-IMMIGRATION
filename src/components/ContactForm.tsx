@@ -21,19 +21,19 @@ export default function ContactForm({ language }: ContactFormProps) {
   const content = {
     fr: {
       title: 'Contact corporate',
-      subtitle: 'Equipe dediee, disponible et reglementee.',
+      subtitle: 'Équipe dédiée, disponible et réglementée.',
       name: 'Nom complet',
       email: 'Email',
-      phone: 'Telephone',
+      phone: 'Téléphone',
       message: 'Message',
       submit: 'Envoyer',
       submitting: 'Envoi...',
-      success: 'Message bien recu! Nous revenons vers vous rapidement.',
-      errorMsg: 'Impossible d\'envoyer le message. Merci de reessayer.',
+      success: 'Message bien reçu! Nous revenons vers vous rapidement.',
+      errorMsg: 'Impossible d\'envoyer le message. Merci de réessayer.',
       namePlaceholder: 'Votre nom complet',
       emailPlaceholder: 'votre@email.com',
       phonePlaceholder: '+1 (514) 000-0000',
-      messagePlaceholder: 'Decrivez votre projet d\'immigration...',
+      messagePlaceholder: 'Décrivez votre projet d\'immigration...',
     },
     en: {
       title: 'Corporate contact',
@@ -94,7 +94,7 @@ export default function ContactForm({ language }: ContactFormProps) {
           <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 lg:p-10 space-y-8">
             <div>
               <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
-                {language === 'fr' ? 'Disponibilite' : 'Availability'}
+                {language === 'fr' ? 'Disponibilité' : 'Availability'}
               </p>
               <h2 className="text-4xl font-semibold text-white">{content[language].title}</h2>
               <p className="text-xl text-brand-light/80 mt-3">{content[language].subtitle}</p>
@@ -112,7 +112,7 @@ export default function ContactForm({ language }: ContactFormProps) {
                   label: 'fmimb@yahoo.fr',
                   href: 'mailto:fmimb@yahoo.fr',
                 },
-                { icon: MapPin, label: 'Montreal, Quebec, Canada' },
+                { icon: MapPin, label: 'Montréal, Québec, Canada' },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-4 text-white/80">
                   <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center">
@@ -136,7 +136,7 @@ export default function ContactForm({ language }: ContactFormProps) {
               <p className="text-2xl font-semibold text-white">09h - 17h EST</p>
               <p className="text-brand-light/80 mt-2">
                 {language === 'fr'
-                  ? 'Disponibilite flexible pour les clients internationaux.'
+                  ? 'Disponibilité flexible pour les clients internationaux.'
                   : 'Flexible availability for international clients.'}
               </p>
             </div>

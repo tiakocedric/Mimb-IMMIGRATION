@@ -1,5 +1,6 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import CricLogo from '../assets/cric-cisr-logo.svg';
+import AdvisorPhoto from '../assets/Photo de Mimb Franklin.jpg';
 
 interface HeroProps {
   language: 'fr' | 'en';
@@ -8,20 +9,20 @@ interface HeroProps {
 export default function Hero({ language }: HeroProps) {
   const content = {
     fr: {
-      badge: 'Consultant reglemente du Canada',
-      title: 'Immigration reglementee, confiance garantie.',
+      badge: 'Consultant réglementé du Canada',
+      title: 'Immigration réglementée, confiance garantie.',
       subtitle: 'MIMBIMMIGRATION CONSULTANCY INC.',
       description:
-        'Accompagnement structure, serieux et conforme aux normes canadiennes pour transformer vos projets en realite. Nous defendons vos interets avec la rigueur d\'un cabinet corporate.',
-      highlights: ['Confiance', 'Professionnalisme', 'Immigration reglementee'],
+        'Accompagnement structuré, sérieux et conforme aux normes canadiennes pour transformer vos projets en réalité. Nous défendons vos intérêts avec la rigueur d\'un cabinet corporate.',
+      highlights: ['Confiance', 'Professionnalisme', 'Immigration réglementée'],
       ctaAppointment: 'Planifier une consultation',
-      ctaContact: 'Parler a un expert',
+      ctaContact: 'Parler à un expert',
       advisor: 'Mimb Franklin',
       advisorRole: 'Consultant RCIC',
       stats: [
         { value: '98%', label: 'Clients satisfaits' },
         { value: '15+', label: 'Programmes d\'immigration' },
-        { value: '2 langues', label: 'Francais & Anglais' },
+        { value: '2 langues', label: 'Français & Anglais' },
       ],
     },
     en: {
@@ -59,7 +60,7 @@ export default function Hero({ language }: HeroProps) {
               {content[language].badge}
             </span>
             <div className="space-y-3">
-              <p className="text-brand-light/80 tracking-[0.4em] text-xs uppercase">
+              <p className="text-white font-bold tracking-[0.4em] text-sm sm:text-base uppercase">
                 {content[language].subtitle}
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">
@@ -133,7 +134,7 @@ export default function Hero({ language }: HeroProps) {
                 <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center">
                   <MapPin size={20} className="text-white" />
                 </span>
-                <span>Montreal, Quebec, Canada</span>
+                <span>Montréal, Québec, Canada</span>
               </div>
             </div>
           </div>
@@ -141,8 +142,13 @@ export default function Hero({ language }: HeroProps) {
           <div className="relative">
             <div className="bg-white/10 border border-white/10 rounded-[32px] p-10 backdrop-blur-md shadow-2xl">
               <div className="flex items-center gap-6">
-                <div className="w-24 h-24 rounded-full border-2 border-brand-red flex items-center justify-center text-4xl font-bold text-white">
-                  MF
+                <div className="w-28 h-28 rounded-full border-2 border-brand-red overflow-hidden shadow-xl">
+                  <img
+                    src={AdvisorPhoto}
+                    alt="Mimb Franklin"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
                 <div>
                   <p className="text-2xl font-semibold text-white">

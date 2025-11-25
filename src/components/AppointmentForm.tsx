@@ -24,22 +24,22 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
   const content = {
     fr: {
       title: 'Planifier une consultation',
-      subtitle: 'Dossier analyse, strategie proposee et calendrier confirme.',
+      subtitle: 'Dossier analysé, stratégie proposée et calendrier confirmé.',
       name: 'Nom complet',
       email: 'Email',
-      phone: 'Telephone',
-      service: 'Service souhaite',
-      date: 'Date preferee',
-      time: 'Heure preferee',
+      phone: 'Téléphone',
+      service: 'Service souhaité',
+      date: 'Date préférée',
+      time: 'Heure préférée',
       message: 'Message (optionnel)',
       submit: 'Confirmer le rendez-vous',
       submitting: 'Envoi en cours...',
-      success: 'Rendez-vous demande avec succes! Confirmation par email sous 24h.',
-      errorMsg: 'Une erreur est survenue. Merci de reessayer.',
+      success: 'Rendez-vous demandé avec succès! Confirmation par email sous 24h.',
+      errorMsg: 'Une erreur est survenue. Merci de réessayer.',
       services: [
-        'Residence permanente',
+        'Résidence permanente',
         'Permis de travail',
-        'Permis d\'etudes',
+        'Permis d\'études',
         'Visa visiteur',
         'Demande d\'asile',
       ],
@@ -132,7 +132,7 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
 
   const appointmentPillars =
     language === 'fr'
-      ? ['Confiance', 'Professionnalisme', 'Immigration reglementee']
+      ? ['Confiance', 'Professionnalisme', 'Immigration réglementée']
       : ['Trust', 'Professionalism', 'Regulated immigration'];
 
   return (
@@ -144,7 +144,7 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
               <span className="inline-flex items-center gap-3 px-4 py-2 bg-white/10 border border-white/10 rounded-full text-brand-light/80 text-sm">
                 <Calendar size={20} />
                 {language === 'fr'
-                  ? 'Consultation strategique et reglementee'
+                  ? 'Consultation stratégique et réglementée'
                   : 'Strategic, regulated consultation'}
               </span>
               <h2 className="text-4xl font-semibold text-white">{content[language].title}</h2>
@@ -165,12 +165,12 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 space-y-4">
               <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70">
-                {language === 'fr' ? 'Delai moyen de reponse' : 'Average response time'}
+                {language === 'fr' ? 'Délai moyen de réponse' : 'Average response time'}
               </p>
               <p className="text-3xl font-semibold text-white">24h</p>
               <p className="text-brand-light/80">
                 {language === 'fr'
-                  ? 'Nous confirmons chaque rendez-vous avec un briefing ecrit et des documents requis.'
+                  ? 'Nous confirmons chaque rendez-vous avec un briefing écrit et des documents requis.'
                   : 'Each appointment is confirmed with a written brief and required documents.'}
               </p>
             </div>

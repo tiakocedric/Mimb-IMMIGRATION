@@ -7,34 +7,34 @@ interface AboutProps {
 export default function About({ language }: AboutProps) {
   const content = {
     fr: {
-      title: 'A? propos de Mimb Franklin',
-      subtitle: 'Un accompagnement corporate pour un parcours reglemente.',
-      bio: 'Consultant reglemente en immigration canadienne, je defends les dossiers avec la rigueur d\'un cabinet d\'affaires. Depuis Montreal, j\'accompagne des familles, talents et entreprises dans toutes les juridictions canadiennes.',
+      title: 'À propos de Mimb Franklin',
+      subtitle: 'Un accompagnement corporate pour un parcours réglementé.',
+      bio: 'Consultant réglementé en immigration canadienne, je défends les dossiers avec la rigueur d\'un cabinet d\'affaires. Depuis Montréal, j\'accompagne des familles, talents et entreprises dans toutes les juridictions canadiennes.',
       mission: 'Mission',
       missionText:
-        'Faciliter des decisions claires, conformes et strategiques pour chaque client. La confiance s\'installe lorsque la methode est structuree et transparente.',
+        'Faciliter des décisions claires, conformes et stratégiques pour chaque client. La confiance s\'installe lorsque la méthode est structurée et transparente.',
       company: 'MIMBIMMIGRATION CONSULTANCY INC.',
       values: 'Piliers',
       valueItems: [
         {
           icon: Shield,
-          title: 'Conformite',
-          description: 'Processus audite et respect strict des normes canadiennes.',
+          title: 'Conformité',
+          description: 'Processus audité et respect strict des normes canadiennes.',
         },
         {
           icon: Award,
           title: 'Excellence',
-          description: 'Analyse approfondie et memorandums clairs pour chaque dossier.',
+          description: 'Analyse approfondie et mémorandums clairs pour chaque dossier.',
         },
         {
           icon: Users,
           title: 'Accompagnement',
-          description: 'Relation suivie et mise a jour proactive des clients.',
+          description: 'Relation suivie et mise à jour proactive des clients.',
         },
         {
           icon: Globe,
           title: 'Bilinguisme',
-          description: 'Service complet en francais et en anglais.',
+          description: 'Service complet en français et en anglais.',
         },
       ],
     },
@@ -102,7 +102,7 @@ export default function About({ language }: AboutProps) {
               </div>
               <div className="rounded-3xl border border-brand-red/30 bg-brand-red/10 p-8">
                 <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70 mb-2">
-                  {language === 'fr' ? 'Societe' : 'Company'}
+                  {language === 'fr' ? 'Société' : 'Company'}
                 </p>
                 <p className="text-2xl font-semibold text-white">
                   {content[language].company}

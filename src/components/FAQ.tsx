@@ -10,33 +10,33 @@ export default function FAQ({ language }: FAQProps) {
 
   const content = {
     fr: {
-      title: 'Questions Fréquentes',
-      subtitle: 'Réponses aux questions les plus courantes sur l\'immigration',
+      title: 'Questions fréquentes',
+      subtitle: "Réponses aux questions les plus courantes sur l'immigration",
       faqs: [
         {
           question: 'Combien de temps prend une demande de résidence permanente?',
           answer:
-            'Le délai varie selon le programme choisi. Pour l\'Entrée Express, le traitement prend généralement 6 mois. Pour d\'autres programmes, cela peut prendre de 12 à 24 mois. Je vous guide pour choisir le programme le plus rapide adapté à votre profil.',
+            "Le délai varie selon le programme choisi. Pour l'Entrée Express, le traitement prend généralement 6 mois. Pour d'autres programmes, cela peut prendre de 12 à 24 mois. Je vous guide pour choisir le programme le plus rapide adapté à votre profil.",
         },
         {
-          question: 'Ai-je besoin d\'une offre d\'emploi pour immigrer au Canada?',
+          question: "Ai-je besoin d'une offre d'emploi pour immigrer au Canada?",
           answer:
-            'Pas nécessairement. Certains programmes comme l\'Entrée Express (catégorie fédérale des travailleurs qualifiés) ne requièrent pas d\'offre d\'emploi. Cependant, une offre d\'emploi validée peut augmenter vos points et accélérer votre candidature.',
+            "Pas nécessairement. Certains programmes comme l'Entrée Express (catégorie fédérale des travailleurs qualifiés) ne requièrent pas d'offre d'emploi. Cependant, une offre validée peut augmenter vos points et accélérer votre candidature.",
         },
         {
           question: 'Quels sont vos honoraires?',
           answer:
-            'Les honoraires varient selon le type de service et la complexité du dossier. Je propose une consultation initiale pour évaluer votre situation et vous fournir un devis détaillé. Contactez-moi pour plus d\'informations.',
+            "Les honoraires varient selon le type de service et la complexité du dossier. Je propose une consultation initiale pour évaluer votre situation et vous fournir un devis détaillé. Contactez-moi pour plus d'informations.",
         },
         {
           question: 'Puis-je travailler pendant le traitement de ma demande?',
           answer:
-            'Cela dépend de votre statut actuel. Si vous êtes au Canada avec un permis de travail valide, vous pouvez continuer à travailler. Pour certaines demandes, un permis de travail ouvert peut être obtenu pendant le traitement.',
+            "Cela dépend de votre statut actuel. Si vous êtes au Canada avec un permis de travail valide, vous pouvez continuer à travailler. Pour certaines demandes, un permis de travail ouvert peut être obtenu pendant le traitement.",
         },
         {
           question: 'Comment puis-je vérifier que vous êtes un consultant réglementé?',
           answer:
-            'Je suis membre en règle du Collège des consultants en immigration et en citoyenneté (CCIC). Vous pouvez vérifier mon statut sur le site officiel du CCIC. En tant que consultant réglementé, je suis autorisé à représenter mes clients devant IRCC.',
+            "Je suis membre en règle du Collège des consultants en immigration et en citoyenneté (CCIC). Vous pouvez vérifier mon statut sur le site officiel du CCIC. En tant que consultant réglementé, je suis autorisé à représenter mes clients devant IRCC.",
         },
         {
           question: 'Offrez-vous des services en anglais et en français?',
@@ -92,7 +92,7 @@ export default function FAQ({ language }: FAQProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
-            {language === 'fr' ? 'Clarte' : 'Clarity'}
+            {language === 'fr' ? 'Clarté' : 'Clarity'}
           </p>
           <h2 className="text-4xl font-bold text-white mb-4">
             {content[language].title}
