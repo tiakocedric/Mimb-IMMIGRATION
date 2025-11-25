@@ -56,9 +56,9 @@ export default function Testimonials({ language }: TestimonialsProps) {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
+      <section className="py-24 bg-brand-navy/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-600">{content[language].loading}</p>
+          <p className="text-brand-light/80">{content[language].loading}</p>
         </div>
       </section>
     );
@@ -69,33 +69,38 @@ export default function Testimonials({ language }: TestimonialsProps) {
   }
 
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-blue-50 to-white">
+    <section id="testimonials" className="py-24 bg-brand-navy/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+            {language === 'fr' ? 'Confiance' : 'Trust'}
+          </p>
+          <h2 className="text-4xl font-bold text-white mb-4">
             {content[language].title}
           </h2>
-          <p className="text-xl text-gray-600">{content[language].subtitle}</p>
+          <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 relative">
-            <div className="flex justify-center mb-6">
+          <div className="bg-white/5 border border-white/10 rounded-[32px] p-8 md:p-12 relative backdrop-blur">
+            <div className="flex justify-center mb-6 gap-1">
               {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <Star key={i} className="text-yellow-400 fill-current" size={24} />
+                <Star key={i} className="text-brand-red fill-brand-red" size={24} />
               ))}
             </div>
 
-            <blockquote className="text-xl text-gray-700 leading-relaxed mb-8 text-center">
+            <blockquote className="text-xl text-white leading-relaxed mb-8 text-center">
               "{testimonials[currentIndex].testimonial_text}"
             </blockquote>
 
             <div className="text-center">
-              <p className="font-bold text-gray-900 text-lg">
+              <p className="font-bold text-white text-lg">
                 {testimonials[currentIndex].client_name}
               </p>
-              <p className="text-blue-600">{testimonials[currentIndex].client_country}</p>
-              <p className="text-gray-500 text-sm mt-1">
+              <p className="text-brand-light/80">
+                {testimonials[currentIndex].client_country}
+              </p>
+              <p className="text-brand-light/60 text-sm mt-1">
                 {testimonials[currentIndex].service_type}
               </p>
             </div>
@@ -104,14 +109,14 @@ export default function Testimonials({ language }: TestimonialsProps) {
               <>
                 <button
                   onClick={prevTestimonial}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-brand-red text-white rounded-full hover:scale-110 transition-transform"
                   aria-label="Previous testimonial"
                 >
                   <ChevronLeft size={24} />
                 </button>
                 <button
                   onClick={nextTestimonial}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-brand-red text-white rounded-full hover:scale-110 transition-transform"
                   aria-label="Next testimonial"
                 >
                   <ChevronRight size={24} />
@@ -128,8 +133,8 @@ export default function Testimonials({ language }: TestimonialsProps) {
                   onClick={() => setCurrentIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all ${
                     index === currentIndex
-                      ? 'bg-blue-600 w-8'
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? 'bg-brand-red w-8'
+                      : 'bg-white/30 hover:bg-white/50'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />

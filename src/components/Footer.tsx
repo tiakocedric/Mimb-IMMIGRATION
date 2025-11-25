@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
 
 interface FooterProps {
   language: 'fr' | 'en';
@@ -11,14 +11,14 @@ export default function Footer({ language }: FooterProps) {
       quickLinks: 'Liens rapides',
       links: [
         { label: 'Accueil', href: '#home' },
-        { label: 'À propos', href: '#about' },
+        { label: 'A? propos', href: '#about' },
         { label: 'Services', href: '#services' },
-        { label: 'Témoignages', href: '#testimonials' },
+        { label: 'TAcmoignages', href: '#testimonials' },
         { label: 'FAQ', href: '#faq' },
         { label: 'Contact', href: '#contact' },
       ],
-      rights: 'Tous droits réservés.',
-      designedBy: 'Site conçu par',
+      rights: 'Tous droits reserves.',
+      designedBy: 'Site conAu par',
     },
     en: {
       contact: 'Contact',
@@ -44,57 +44,65 @@ export default function Footer({ language }: FooterProps) {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4">MIMBIMMIGRATION</h3>
-            <p className="text-gray-400 mb-4">
+    <footer className="bg-gradient-to-r from-brand-navy via-brand-navy to-brand-red/60 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid md:grid-cols-3 gap-10 mb-12">
+          <div className="space-y-4">
+            <h3 className="text-2xl font-semibold tracking-[0.4em]">
+              MIMB<span className="text-brand-red">IMMIGRATION</span>
+            </h3>
+            <p className="text-white/70">
               {language === 'fr'
-                ? 'Consultant réglementé en immigration canadienne'
-                : 'Regulated Canadian Immigration Consultant'}
+                ? 'Cabinet corporate, consultant reglemente en immigration canadienne.'
+                : 'Corporate advisory, regulated Canadian immigration consultant.'}
             </p>
-            <p className="text-gray-400">
-              {language === 'fr' ? 'Votre avenir, notre mission' : 'Your future, our mission'}
+            <p className="text-white/60 uppercase tracking-[0.4em] text-xs">
+              {language === 'fr'
+                ? 'Confiance . Professionnalisme . Reglementation'
+                : 'Trust . Professionalism . Regulation'}
             </p>
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-4">{content[language].contact}</h3>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-gray-400">
-                <Phone size={18} className="text-blue-400 flex-shrink-0" />
-                <a
-                  href="tel:+15144627623"
-                  className="hover:text-white transition-colors"
-                >
+            <h3 className="text-lg font-semibold mb-4 uppercase tracking-[0.4em] text-white/80">
+              {content[language].contact}
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-white/80">
+                <span className="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center">
+                  <Phone size={18} />
+                </span>
+                <a href="tel:+15144627623" className="hover:text-white transition-colors">
                   (514) 462-7623
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <Mail size={18} className="text-blue-400 flex-shrink-0" />
-                <a
-                  href="mailto:fmimb@yahoo.fr"
-                  className="hover:text-white transition-colors"
-                >
+              <div className="flex items-center gap-3 text-white/80">
+                <span className="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center">
+                  <Mail size={18} />
+                </span>
+                <a href="mailto:fmimb@yahoo.fr" className="hover:text-white transition-colors">
                   fmimb@yahoo.fr
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <MapPin size={18} className="text-blue-400 flex-shrink-0" />
-                <span>Montréal, Québec, Canada</span>
+              <div className="flex items-center gap-3 text-white/80">
+                <span className="w-10 h-10 rounded-full bg-brand-red flex items-center justify-center">
+                  <MapPin size={18} />
+                </span>
+                <span>Montreal, Quebec, Canada</span>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-4">{content[language].quickLinks}</h3>
+            <h3 className="text-lg font-semibold mb-4 uppercase tracking-[0.4em] text-white/80">
+              {content[language].quickLinks}
+            </h3>
             <ul className="space-y-2">
               {content[language].links.map((link) => (
                 <li key={link.href}>
                   <button
                     onClick={() => scrollToSection(link.href)}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </button>
@@ -104,19 +112,20 @@ export default function Footer({ language }: FooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-sm text-center md:text-left">
-              © {new Date().getFullYear()} MIMBIMMIGRATION CONSULTANCY INC.{' '}
+        <div className="border-t border-white/15 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-white/70 text-sm">
+            <p className="text-center md:text-left">
+              Ac {new Date().getFullYear()} MIMBIMMIGRATION CONSULTANCY INC.{' '}
               {content[language].rights}
             </p>
             <a
               href="https://smart-solutions-it.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors text-sm"
+              className="flex items-center gap-2 hover:text-white transition-colors"
             >
-              {content[language].designedBy} <span className="font-semibold">Smart Solution IT</span>
+              {content[language].designedBy}{' '}
+              <span className="font-semibold text-white">Smart Solution IT</span>
               <ExternalLink size={16} />
             </a>
           </div>

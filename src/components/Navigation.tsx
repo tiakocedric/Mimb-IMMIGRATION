@@ -1,5 +1,6 @@
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import CricLogo from '../assets/cric-cisr-logo.svg';
 
 interface NavigationProps {
   language: 'fr' | 'en';
@@ -12,9 +13,9 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
   const navItems = {
     fr: [
       { label: 'Accueil', href: '#home' },
-      { label: 'À propos', href: '#about' },
+      { label: 'A? propos', href: '#about' },
       { label: 'Services', href: '#services' },
-      { label: 'Témoignages', href: '#testimonials' },
+      { label: 'TAcmoignages', href: '#testimonials' },
       { label: 'FAQ', href: '#faq' },
       { label: 'Contact', href: '#contact' },
     ],
@@ -36,36 +37,67 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
     }
   };
 
+  const renderLinks = (variant: 'desktop' | 'mobile') =>
+    navItems[language].map((item) => (
+      <button
+        key={item.href}
+        onClick={() => scrollToSection(item.href)}
+        className={
+          variant === 'desktop'
+            ? 'text-white/70 hover:text-white transition-colors text-sm tracking-wide'
+            : 'w-full text-left text-white/80 hover:text-white py-2'
+        }
+      >
+        {item.label}
+      </button>
+    ));
+
+  const LanguageToggle = ({ variant = 'desktop' }: { variant?: 'desktop' | 'mobile' }) => (
+    <button
+      onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
+      className={`px-4 py-2 bg-brand-red text-white rounded-full font-semibold hover:bg-white hover:text-brand-navy transition-colors ${
+        variant === 'mobile' ? 'w-full' : ''
+      }`}
+    >
+      {language === 'fr' ? 'EN' : 'FR'}
+    </button>
+  );
+
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-navy/90 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
-            <span className="text-xl font-bold text-blue-600">MIMBIMMIGRATION</span>
+          <div className="flex-shrink-0 flex items-center gap-3">
+            <img
+              src={CricLogo}
+              alt="CRIC-CISR"
+              className="h-10 w-auto drop-shadow-lg"
+              loading="lazy"
+            />
+            <div className="hidden sm:flex flex-col leading-tight">
+              <span className="text-sm font-semibold tracking-[0.6em] text-white">
+                CRIC-CISR
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-white/60">
+                {language === 'fr'
+                  ? 'Consultant réglementé'
+                  : 'Regulated consultant'}
+              </span>
+            </div>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {navItems[language].map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                {item.label}
-              </button>
-            ))}
-            <button
-              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              {language === 'fr' ? 'EN' : 'FR'}
-            </button>
+            {renderLinks('desktop')}
+          </div>
+
+          <div className="hidden md:flex">
+            <LanguageToggle variant="desktop" />
           </div>
 
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 hover:text-blue-600"
+              className="text-white hover:text-brand-red transition-colors"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -74,23 +106,10 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div className="md:hidden bg-brand-navy border-t border-white/10">
           <div className="px-4 py-4 space-y-3">
-            {navItems[language].map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left text-gray-700 hover:text-blue-600 py-2"
-              >
-                {item.label}
-              </button>
-            ))}
-            <button
-              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              {language === 'fr' ? 'English' : 'Français'}
-            </button>
+            <div className="flex flex-col space-y-3">{renderLinks('mobile')}</div>
+            <LanguageToggle variant="mobile" />
           </div>
         </div>
       )}

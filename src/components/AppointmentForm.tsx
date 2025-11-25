@@ -23,25 +23,25 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
 
   const content = {
     fr: {
-      title: 'Prendre rendez-vous',
-      subtitle: 'Planifiez une consultation pour discuter de votre projet',
+      title: 'Planifier une consultation',
+      subtitle: 'Dossier analyse, strategie proposee et calendrier confirme.',
       name: 'Nom complet',
       email: 'Email',
-      phone: 'Téléphone',
-      service: 'Service souhaité',
-      date: 'Date préférée',
-      time: 'Heure préférée',
+      phone: 'Telephone',
+      service: 'Service souhaite',
+      date: 'Date preferee',
+      time: 'Heure preferee',
       message: 'Message (optionnel)',
       submit: 'Confirmer le rendez-vous',
       submitting: 'Envoi en cours...',
-      success: 'Rendez-vous demandé avec succès! Nous vous confirmerons par email.',
-      errorMsg: 'Une erreur est survenue. Veuillez réessayer.',
+      success: 'Rendez-vous demande avec succes! Confirmation par email sous 24h.',
+      errorMsg: 'Une erreur est survenue. Merci de reessayer.',
       services: [
-        'Résidence Permanente',
-        'Permis de Travail',
-        'Permis d\'Études',
-        'Visa Visiteur',
-        'Demande d\'Asile',
+        'Residence permanente',
+        'Permis de travail',
+        'Permis d\'etudes',
+        'Visa visiteur',
+        'Demande d\'asile',
       ],
       times: [
         '09:00 - 10:00',
@@ -54,8 +54,8 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
       ],
     },
     en: {
-      title: 'Book an Appointment',
-      subtitle: 'Schedule a consultation to discuss your project',
+      title: 'Book a consultation',
+      subtitle: 'Case review, proposed strategy and confirmed timeline.',
       name: 'Full name',
       email: 'Email',
       phone: 'Phone',
@@ -65,14 +65,14 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
       message: 'Message (optional)',
       submit: 'Confirm appointment',
       submitting: 'Sending...',
-      success: 'Appointment requested successfully! We will confirm by email.',
-      errorMsg: 'An error occurred. Please try again.',
+      success: 'Appointment requested successfully! Confirmation within 24h.',
+      errorMsg: 'Something went wrong. Please try again.',
       services: [
-        'Permanent Residence',
-        'Work Permit',
-        'Study Permit',
-        'Visitor Visa',
-        'Asylum Application',
+        'Permanent residence',
+        'Work permit',
+        'Study permit',
+        'Visitor visa',
+        'Asylum application',
       ],
       times: [
         '09:00 - 10:00',
@@ -92,9 +92,7 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
     setError('');
 
     try {
-      const { error: submitError } = await supabase
-        .from('appointments')
-        .insert([formData]);
+      const { error: submitError } = await supabase.from('appointments').insert([formData]);
 
       if (submitError) throw submitError;
 
@@ -109,9 +107,7 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
         message: '',
       });
 
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 5000);
+      setTimeout(() => setIsSuccess(false), 5000);
     } catch (err) {
       setError(content[language].errorMsg);
       console.error('Error submitting appointment:', err);
@@ -121,9 +117,7 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData({
       ...formData,
@@ -133,187 +127,212 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
 
   const today = new Date().toISOString().split('T')[0];
 
+  const inputClasses =
+    'w-full px-4 py-3 rounded-2xl bg-brand-navy/40 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-red/60 transition-all';
+
+  const appointmentPillars =
+    language === 'fr'
+      ? ['Confiance', 'Professionnalisme', 'Immigration reglementee']
+      : ['Trust', 'Professionalism', 'Regulated immigration'];
+
   return (
-    <section id="appointment" className="py-20 bg-gradient-to-br from-blue-50 to-white">
+    <section id="appointment" className="py-24 bg-brand-navy/90">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-block p-3 bg-blue-100 rounded-full mb-4">
-            <Calendar className="text-blue-600" size={40} />
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <span className="inline-flex items-center gap-3 px-4 py-2 bg-white/10 border border-white/10 rounded-full text-brand-light/80 text-sm">
+                <Calendar size={20} />
+                {language === 'fr'
+                  ? 'Consultation strategique et reglementee'
+                  : 'Strategic, regulated consultation'}
+              </span>
+              <h2 className="text-4xl font-semibold text-white">{content[language].title}</h2>
+              <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
+            </div>
+
+            <div className="grid gap-4">
+              {appointmentPillars.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-3 text-white/80 text-sm uppercase tracking-[0.4em]"
+                >
+                  <span className="w-3 h-3 rounded-full bg-brand-red" />
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 space-y-4">
+              <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70">
+                {language === 'fr' ? 'Delai moyen de reponse' : 'Average response time'}
+              </p>
+              <p className="text-3xl font-semibold text-white">24h</p>
+              <p className="text-brand-light/80">
+                {language === 'fr'
+                  ? 'Nous confirmons chaque rendez-vous avec un briefing ecrit et des documents requis.'
+                  : 'Each appointment is confirmed with a written brief and required documents.'}
+              </p>
+            </div>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            {content[language].title}
-          </h2>
-          <p className="text-xl text-gray-600">{content[language].subtitle}</p>
-        </div>
 
-        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-          {isSuccess && (
-            <div className="mb-8 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
-              <CheckCircle className="text-green-600" size={24} />
-              <p className="text-green-800">{content[language].success}</p>
-            </div>
-          )}
+          <div className="bg-white/5 border border-white/10 rounded-[32px] p-8 lg:p-10 backdrop-blur">
+            {isSuccess && (
+              <div className="mb-6 flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-brand-light">
+                <CheckCircle className="text-brand-red" size={22} />
+                <p>{content[language].success}</p>
+              </div>
+            )}
 
-          {error && (
-            <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800">{error}</p>
-            </div>
-          )}
+            {error && (
+              <div className="mb-6 rounded-2xl border border-brand-red/40 bg-brand-red/10 px-4 py-3 text-white">
+                {error}
+              </div>
+            )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="full_name" className="block text-sm font-semibold text-white mb-2">
+                    {content[language].name}
+                  </label>
+                  <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    value={formData.full_name}
+                    onChange={handleChange}
+                    required
+                    className={inputClasses}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-white mb-2">
+                    {content[language].email}
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={inputClasses}
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-white mb-2">
+                    {content[language].phone}
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className={inputClasses}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="service_type"
+                    className="block text-sm font-semibold text-white mb-2"
+                  >
+                    {content[language].service}
+                  </label>
+                  <select
+                    id="service_type"
+                    name="service_type"
+                    value={formData.service_type}
+                    onChange={handleChange}
+                    required
+                    className={`${inputClasses} appearance-none`}
+                  >
+                    <option value="">--</option>
+                    {content[language].services.map((service) => (
+                      <option key={service} value={service} className="text-brand-navy">
+                        {service}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    htmlFor="preferred_date"
+                    className="block text-sm font-semibold text-white mb-2"
+                  >
+                    {content[language].date}
+                  </label>
+                  <input
+                    type="date"
+                    id="preferred_date"
+                    name="preferred_date"
+                    value={formData.preferred_date}
+                    onChange={handleChange}
+                    min={today}
+                    required
+                    className={inputClasses}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="preferred_time"
+                    className="block text-sm font-semibold text-white mb-2"
+                  >
+                    {content[language].time}
+                  </label>
+                  <select
+                    id="preferred_time"
+                    name="preferred_time"
+                    value={formData.preferred_time}
+                    onChange={handleChange}
+                    required
+                    className={`${inputClasses} appearance-none`}
+                  >
+                    <option value="">--</option>
+                    {content[language].times.map((time) => (
+                      <option key={time} value={time} className="text-brand-navy">
+                        {time}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               <div>
-                <label
-                  htmlFor="full_name"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  {content[language].name}
+                <label htmlFor="message" className="block text-sm font-semibold text-white mb-2">
+                  {content[language].message}
                 </label>
-                <input
-                  type="text"
-                  id="full_name"
-                  name="full_name"
-                  value={formData.full_name}
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  rows={4}
+                  className={`${inputClasses} resize-none`}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  {content[language].email}
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  {content[language].phone}
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="service_type"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  {content[language].service}
-                </label>
-                <select
-                  id="service_type"
-                  name="service_type"
-                  value={formData.service_type}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">--</option>
-                  {content[language].services.map((service) => (
-                    <option key={service} value={service}>
-                      {service}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label
-                  htmlFor="preferred_date"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  {content[language].date}
-                </label>
-                <input
-                  type="date"
-                  id="preferred_date"
-                  name="preferred_date"
-                  value={formData.preferred_date}
-                  onChange={handleChange}
-                  min={today}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="preferred_time"
-                  className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                  {content[language].time}
-                </label>
-                <select
-                  id="preferred_time"
-                  name="preferred_time"
-                  value={formData.preferred_time}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">--</option>
-                  {content[language].times.map((time) => (
-                    <option key={time} value={time}>
-                      {time}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-semibold text-gray-700 mb-2"
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full px-8 py-4 rounded-full bg-brand-red text-white font-semibold flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-transform disabled:bg-white/20 disabled:text-white/50"
               >
-                {content[language].message}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              <Calendar size={20} />
-              {isSubmitting ? content[language].submitting : content[language].submit}
-            </button>
-          </form>
+                <Calendar size={20} />
+                {isSubmitting ? content[language].submitting : content[language].submit}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>

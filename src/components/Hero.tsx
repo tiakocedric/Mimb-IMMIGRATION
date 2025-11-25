@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
+import CricLogo from '../assets/cric-cisr-logo.svg';
 
 interface HeroProps {
   language: 'fr' | 'en';
@@ -7,20 +8,38 @@ interface HeroProps {
 export default function Hero({ language }: HeroProps) {
   const content = {
     fr: {
-      title: 'Votre avenir, notre mission',
-      subtitle: 'Consultant réglementé en immigration canadienne',
+      badge: 'Consultant reglemente du Canada',
+      title: 'Immigration reglementee, confiance garantie.',
+      subtitle: 'MIMBIMMIGRATION CONSULTANCY INC.',
       description:
-        'Avec MIMBIMMIGRATION CONSULTANCY INC., réalisez votre rêve canadien. Je vous accompagne dans toutes vos démarches d\'immigration avec expertise et professionnalisme.',
-      ctaAppointment: 'Prendre rendez-vous',
-      ctaContact: 'Nous contacter',
+        'Accompagnement structure, serieux et conforme aux normes canadiennes pour transformer vos projets en realite. Nous defendons vos interets avec la rigueur d\'un cabinet corporate.',
+      highlights: ['Confiance', 'Professionnalisme', 'Immigration reglementee'],
+      ctaAppointment: 'Planifier une consultation',
+      ctaContact: 'Parler a un expert',
+      advisor: 'Mimb Franklin',
+      advisorRole: 'Consultant RCIC',
+      stats: [
+        { value: '98%', label: 'Clients satisfaits' },
+        { value: '15+', label: 'Programmes d\'immigration' },
+        { value: '2 langues', label: 'Francais & Anglais' },
+      ],
     },
     en: {
-      title: 'Your future, our mission',
-      subtitle: 'Regulated Canadian Immigration Consultant',
+      badge: 'Regulated Canadian Consultant',
+      title: 'Regulated immigration, trust assured.',
+      subtitle: 'MIMBIMMIGRATION CONSULTANCY INC.',
       description:
-        'With MIMBIMMIGRATION CONSULTANCY INC., make your Canadian dream come true. I support you in all your immigration procedures with expertise and professionalism.',
-      ctaAppointment: 'Book an appointment',
-      ctaContact: 'Contact us',
+        'Structured, corporate-grade guidance that keeps every file compliant and every family confident. We secure your future in Canada with rigour and clarity.',
+      highlights: ['Trust', 'Professionalism', 'Regulated expertise'],
+      ctaAppointment: 'Schedule a consultation',
+      ctaContact: 'Speak with an expert',
+      advisor: 'Mimb Franklin',
+      advisorRole: 'RCIC Consultant',
+      stats: [
+        { value: '98%', label: 'Satisfied clients' },
+        { value: '15+', label: 'Immigration streams' },
+        { value: '2 languages', label: 'French & English' },
+      ],
     },
   };
 
@@ -32,74 +51,123 @@ export default function Hero({ language }: HeroProps) {
   };
 
   return (
-    <section id="home" className="pt-16 bg-gradient-to-br from-blue-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              {content[language].title}
-            </h1>
-            <p className="text-xl text-blue-600 font-semibold">
-              {content[language].subtitle}
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
+    <section id="home" className="pt-24 lg:pt-32 pb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-brand-light uppercase tracking-[0.3em] text-xs">
+              {content[language].badge}
+            </span>
+            <div className="space-y-3">
+              <p className="text-brand-light/80 tracking-[0.4em] text-xs uppercase">
+                {content[language].subtitle}
+              </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">
+                {content[language].title}
+              </h1>
+              <div className="flex items-center gap-4">
+                <img
+                  src={CricLogo}
+                  alt="CRIC-CISR"
+                  className="h-14 w-auto drop-shadow-lg"
+                  loading="lazy"
+                />
+                <div className="text-[11px] uppercase tracking-[0.4em] text-brand-light/70">
+                  {language === 'fr'
+                    ? 'Consultant réglementé en immigration canadienne'
+                    : 'Regulated Canadian immigration consultant'}
+                </div>
+              </div>
+            </div>
+            <p className="text-lg text-brand-light/80 leading-relaxed max-w-2xl">
               {content[language].description}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="grid sm:grid-cols-3 gap-4">
+              {content[language].highlights.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5 text-center text-sm font-semibold tracking-wide text-white"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => scrollToSection('#appointment')}
-                className="px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-all transform hover:scale-105 shadow-lg"
+                className="px-8 py-4 bg-brand-red text-white rounded-full font-semibold shadow-lg shadow-brand-red/30 hover:translate-y-[-2px] transition-transform"
               >
                 {content[language].ctaAppointment}
               </button>
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all"
+                className="px-8 py-4 border border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
               >
                 {content[language].ctaContact}
               </button>
             </div>
 
-            <div className="pt-8 space-y-3">
-              <div className="flex items-center gap-3 text-gray-700">
-                <Phone size={20} className="text-blue-600" />
-                <a href="tel:+15144627623" className="hover:text-blue-600 transition-colors">
+            <div className="flex flex-wrap gap-6 pt-4 text-sm text-brand-light/80">
+              <div className="flex items-center gap-3">
+                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center">
+                  <Phone size={20} className="text-white" />
+                </span>
+                <a href="tel:+15144627623" className="hover:text-white transition-colors">
                   (514) 462-7623
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-700">
-                <Mail size={20} className="text-blue-600" />
+              <div className="flex items-center gap-3">
+                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center">
+                  <Mail size={20} className="text-white" />
+                </span>
                 <a
                   href="mailto:fmimb@yahoo.fr"
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-white transition-colors"
                 >
                   fmimb@yahoo.fr
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-gray-700">
-                <MapPin size={20} className="text-blue-600" />
-                <span>Montréal, Québec, Canada</span>
+              <div className="flex items-center gap-3">
+                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center">
+                  <MapPin size={20} className="text-white" />
+                </span>
+                <span>Montreal, Quebec, Canada</span>
               </div>
             </div>
           </div>
 
           <div className="relative">
-            <div className="aspect-square bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center space-y-4 p-8">
-                  <div className="w-32 h-32 mx-auto bg-white rounded-full shadow-lg flex items-center justify-center">
-                    <span className="text-5xl font-bold text-blue-600">MF</span>
-                  </div>
-                  <div className="text-xl font-bold text-gray-900">Mimb Franklin</div>
-                  <div className="text-blue-600 font-semibold">
-                    {language === 'fr'
-                      ? 'Consultant Réglementé'
-                      : 'Regulated Consultant'}
-                  </div>
+            <div className="bg-white/10 border border-white/10 rounded-[32px] p-10 backdrop-blur-md shadow-2xl">
+              <div className="flex items-center gap-6">
+                <div className="w-24 h-24 rounded-full border-2 border-brand-red flex items-center justify-center text-4xl font-bold text-white">
+                  MF
+                </div>
+                <div>
+                  <p className="text-2xl font-semibold text-white">
+                    {content[language].advisor}
+                  </p>
+                  <p className="text-brand-light/70 tracking-[0.4em] text-xs uppercase">
+                    {content[language].advisorRole}
+                  </p>
                 </div>
               </div>
+
+              <div className="mt-10 space-y-4">
+                {content[language].stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="flex items-center justify-between rounded-2xl bg-brand-navy/60 border border-white/5 px-6 py-4"
+                  >
+                    <p className="text-3xl font-semibold text-white">{stat.value}</p>
+                    <p className="text-sm text-brand-light/70 text-right">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+            <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-brand-red/80 blur-2xl opacity-70" />
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-brand-light/30 blur-3xl opacity-70" />
           </div>
         </div>
       </div>

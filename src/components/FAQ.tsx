@@ -88,37 +88,38 @@ export default function FAQ({ language }: FAQProps) {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section id="faq" className="py-24 bg-brand-navy/95">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+            {language === 'fr' ? 'Clarte' : 'Clarity'}
+          </p>
+          <h2 className="text-4xl font-bold text-white mb-4">
             {content[language].title}
           </h2>
-          <p className="text-xl text-gray-600">{content[language].subtitle}</p>
+          <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
         </div>
 
         <div className="space-y-4">
           {content[language].faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg overflow-hidden hover:border-blue-300 transition-colors"
+              className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 backdrop-blur"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition-colors"
+                className="w-full px-6 py-4 flex justify-between items-center text-left text-white"
               >
-                <span className="text-left font-semibold text-gray-900">
-                  {faq.question}
-                </span>
+                <span className="font-semibold">{faq.question}</span>
                 {openIndex === index ? (
-                  <ChevronUp className="text-blue-600 flex-shrink-0" size={24} />
+                  <ChevronUp className="text-brand-red flex-shrink-0" size={24} />
                 ) : (
-                  <ChevronDown className="text-gray-400 flex-shrink-0" size={24} />
+                  <ChevronDown className="text-white/50 flex-shrink-0" size={24} />
                 )}
               </button>
               {openIndex === index && (
-                <div className="px-6 py-4 bg-white">
-                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                <div className="px-6 py-4 border-t border-white/10 bg-brand-navy/40">
+                  <p className="text-brand-light/80 leading-relaxed">{faq.answer}</p>
                 </div>
               )}
             </div>

@@ -1,4 +1,4 @@
-import { Home, Briefcase, GraduationCap, Plane, Heart } from 'lucide-react';
+import { Briefcase, GraduationCap, Heart, Home, Plane } from 'lucide-react';
 
 interface ServicesProps {
   language: 'fr' | 'en';
@@ -7,76 +7,84 @@ interface ServicesProps {
 export default function Services({ language }: ServicesProps) {
   const content = {
     fr: {
-      title: 'Nos Services',
-      subtitle: 'Des solutions complètes pour tous vos besoins en immigration',
-      cta: 'Prendre rendez-vous',
+      title: 'Solutions corporate pour chaque programme',
+      subtitle: 'Stratege dedie, controle de conformite et suivi proactif.',
+      cta: 'Planifier une consultation',
+      guarantees: [
+        'Analyse complete du dossier',
+        'Documents prepares et verifies',
+        'Relation bilingue FR/EN',
+      ],
       services: [
         {
           icon: Home,
-          title: 'Résidence Permanente',
+          title: 'Residence permanente',
           description:
-            'Obtenez votre résidence permanente au Canada grâce à nos programmes adaptés : Entrée Express, Programme des Travailleurs Qualifiés, parrainage familial et plus encore.',
+            'Planification Express Entry, travailleurs qualifies, parrainage familial et programmes provinciaux.',
         },
         {
           icon: Briefcase,
-          title: 'Permis de Travail',
+          title: 'Permis de travail',
           description:
-            'Sécurisez votre permis de travail canadien. Nous vous accompagnons dans les démarches EIMT, permis fermé ou ouvert, mobilité francophone et transferts intra-entreprise.',
+            'EIMT, mobilite francophone, transferts intra-entreprises et permis ouverts.',
         },
         {
           icon: GraduationCap,
-          title: 'Permis d\'Études',
+          title: 'Permis d\'etudes',
           description:
-            'Étudiez au Canada en toute sérénité. Assistance complète pour permis d\'études, CAQ du Québec, permis de travail post-diplôme et changement de statut.',
+            'Strategie CAQ, permis d\'etudes, permis post-diplome et changements de statut.',
         },
         {
           icon: Plane,
-          title: 'Visa Visiteur',
+          title: 'Visas visiteurs',
           description:
-            'Visitez le Canada sans souci. Demandes de visa visiteur, super visa pour parents et grands-parents, prolongations et restaurations de statut.',
+            'Visas visiteurs, super visas, prolongations de sejour et restaurations de statut.',
         },
         {
           icon: Heart,
-          title: 'Demande d\'Asile',
-          description:
-            'Protection pour les personnes en situation de danger. Accompagnement complet pour demandes d\'asile et statut de réfugié au Canada.',
+          title: 'Protection et asile',
+          description: 'Demandes d\'asile, statuts de refugies et mesures de protection.',
         },
       ],
     },
     en: {
-      title: 'Our Services',
-      subtitle: 'Complete solutions for all your immigration needs',
-      cta: 'Book an appointment',
+      title: 'Corporate-grade solutions for every stream',
+      subtitle: 'Dedicated strategist, compliance control and proactive follow-up.',
+      cta: 'Book a consultation',
+      guarantees: [
+        'Full case assessment',
+        'Documents prepared & checked',
+        'Bilingual relationship FR/EN',
+      ],
       services: [
         {
           icon: Home,
-          title: 'Permanent Residence',
+          title: 'Permanent residence',
           description:
-            'Obtain your permanent residence in Canada through our adapted programs: Express Entry, Skilled Worker Program, family sponsorship and more.',
+            'Express Entry, skilled workers, family sponsorship and provincial programs.',
         },
         {
           icon: Briefcase,
-          title: 'Work Permit',
+          title: 'Work permits',
           description:
-            'Secure your Canadian work permit. We assist you with LMIA applications, closed or open permits, francophone mobility and intra-company transfers.',
+            'LMIAs, francophone mobility, intra-company transfers and open permits.',
         },
         {
           icon: GraduationCap,
-          title: 'Study Permit',
+          title: 'Study permits',
           description:
-            'Study in Canada with peace of mind. Complete assistance for study permits, Quebec CAQ, post-graduation work permit and status changes.',
+            'CAQ strategy, study permits, post-graduation work permits and status changes.',
         },
         {
           icon: Plane,
-          title: 'Visitor Visa',
+          title: 'Visitor visas',
           description:
-            'Visit Canada worry-free. Visitor visa applications, super visa for parents and grandparents, extensions and status restorations.',
+            'Visitor visas, super visas, stay extensions and status restorations.',
         },
         {
           icon: Heart,
-          title: 'Asylum Application',
-          description:
-            'Protection for people in danger. Complete support for asylum claims and refugee status in Canada.',
+          title: 'Protection & asylum',
+          description: 'Asylum claims, refugee status and protective measures.',
         },
       ],
     },
@@ -90,38 +98,57 @@ export default function Services({ language }: ServicesProps) {
   };
 
   return (
-    <section id="services" className="py-20 bg-gray-50">
+    <section id="services" className="py-24 bg-brand-navy/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            {content[language].title}
-          </h2>
-          <p className="text-xl text-gray-600">{content[language].subtitle}</p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {content[language].services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all transform hover:-translate-y-1"
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <service.icon className="text-white" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                {service.description}
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12">
+          <div className="space-y-8">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+                {language === 'fr' ? 'Services' : 'Services'}
               </p>
-              <button
-                onClick={scrollToAppointment}
-                className="w-full px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors"
-              >
-                {content[language].cta}
-              </button>
+              <h2 className="text-4xl font-semibold text-white mb-4">
+                {content[language].title}
+              </h2>
+              <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
             </div>
-          ))}
+
+            <div className="space-y-4">
+              {content[language].guarantees.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-[0.3em]"
+                >
+                  <span className="w-3 h-3 rounded-full bg-brand-red" />
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={scrollToAppointment}
+              className="px-10 py-4 rounded-full bg-brand-red text-white font-semibold hover:translate-y-[-2px] transition-transform shadow-lg shadow-brand-red/30"
+            >
+              {content[language].cta}
+            </button>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {content[language].services.map((service) => (
+              <div
+                key={service.title}
+                className="rounded-3xl border border-white/10 bg-white/5 p-6 flex flex-col gap-4"
+              >
+                <div className="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center">
+                  <service.icon className="text-white" size={26} />
+                </div>
+                <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
+                <p className="text-brand-light/80">{service.description}</p>
+                <div className="mt-auto pt-4 text-sm text-brand-light/60 uppercase tracking-[0.4em]">
+                  {language === 'fr' ? 'Reglemente' : 'Regulated'}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

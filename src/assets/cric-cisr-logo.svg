@@ -1,0 +1,39 @@
+<svg width="640" height="200" viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">CRIC-CISR logo</title>
+  <desc id="desc">A red maple leaf in a circle followed by the CRIC-CISR wordmark</desc>
+  <defs>
+    <linearGradient id="outerRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D51C29" />
+      <stop offset="100%" stop-color="#850F16" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(20 10)">
+    <circle cx="90" cy="90" r="90" fill="url(#outerRing)" />
+    <circle cx="90" cy="90" r="72" fill="#DDE2E6" />
+    <g stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.9">
+      <ellipse cx="90" cy="90" rx="65" ry="45" fill="none" />
+      <ellipse cx="90" cy="90" rx="30" ry="72" fill="none" />
+      <line x1="18" y1="90" x2="162" y2="90" />
+      <path d="M36 42c15 4 35 6 54 6s39-2 54-6" fill="none" />
+      <path d="M36 138c15-4 35-6 54-6s39 2 54 6" fill="none" />
+    </g>
+    <path
+      d="M90 24l12 41 32-10-12 32 32 12-36 8 10 40-38-22-38 22 10-40-36-8 32-12-12-32 32 10z"
+      fill="#C0121E"
+      stroke="#7F0D16"
+      stroke-width="4"
+      stroke-linejoin="round"
+    />
+  </g>
+  <g transform="translate(200 40)">
+    <text x="0" y="62" fill="#D51C29" font-family="Montserrat, 'Open Sans', Arial, sans-serif" font-size="72" font-weight="700">
+      CRIC-CISR
+    </text>
+    <text x="4" y="110" fill="#5D6A72" font-family="'Open Sans', Arial, sans-serif" font-size="28" font-weight="600">
+      Consultant réglementé
+    </text>
+    <text x="4" y="140" fill="#5D6A72" font-family="'Open Sans', Arial, sans-serif" font-size="28" font-weight="600">
+      en immigration canadienne
+    </text>
+  </g>
+</svg>

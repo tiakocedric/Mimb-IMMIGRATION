@@ -1,4 +1,4 @@
-import { Award, Shield, Users, Globe } from 'lucide-react';
+import { Award, Globe, Shield, Users } from 'lucide-react';
 
 interface AboutProps {
   language: 'fr' | 'en';
@@ -7,131 +7,130 @@ interface AboutProps {
 export default function About({ language }: AboutProps) {
   const content = {
     fr: {
-      title: 'À propos de Mimb Franklin',
-      subtitle: 'Votre partenaire de confiance pour l\'immigration au Canada',
-      bio: 'Consultant réglementé en immigration canadienne, je mets mon expertise au service de vos projets d\'immigration. Basé à Montréal, Québec, j\'accompagne des clients du monde entier dans leurs démarches pour vivre, étudier et travailler au Canada.',
-      mission: 'Ma mission',
+      title: 'A? propos de Mimb Franklin',
+      subtitle: 'Un accompagnement corporate pour un parcours reglemente.',
+      bio: 'Consultant reglemente en immigration canadienne, je defends les dossiers avec la rigueur d\'un cabinet d\'affaires. Depuis Montreal, j\'accompagne des familles, talents et entreprises dans toutes les juridictions canadiennes.',
+      mission: 'Mission',
       missionText:
-        'Offrir un accompagnement personnalisé et professionnel pour transformer votre rêve canadien en réalité. Chaque dossier est unique et mérite une attention particulière.',
-      values: 'Nos valeurs',
+        'Faciliter des decisions claires, conformes et strategiques pour chaque client. La confiance s\'installe lorsque la methode est structuree et transparente.',
+      company: 'MIMBIMMIGRATION CONSULTANCY INC.',
+      values: 'Piliers',
       valueItems: [
         {
           icon: Shield,
-          title: 'Professionnalisme',
-          description: 'Service réglementé et conforme aux normes canadiennes',
+          title: 'Conformite',
+          description: 'Processus audite et respect strict des normes canadiennes.',
         },
         {
           icon: Award,
           title: 'Excellence',
-          description: 'Expertise approfondie du système d\'immigration canadien',
+          description: 'Analyse approfondie et memorandums clairs pour chaque dossier.',
         },
         {
           icon: Users,
           title: 'Accompagnement',
-          description: 'Soutien personnalisé à chaque étape du processus',
+          description: 'Relation suivie et mise a jour proactive des clients.',
         },
         {
           icon: Globe,
-          title: 'Diversité',
-          description: 'Service bilingue pour clients francophones et anglophones',
+          title: 'Bilinguisme',
+          description: 'Service complet en francais et en anglais.',
         },
       ],
     },
     en: {
       title: 'About Mimb Franklin',
-      subtitle: 'Your trusted partner for immigration to Canada',
-      bio: 'As a regulated Canadian immigration consultant, I put my expertise at the service of your immigration projects. Based in Montreal, Quebec, I assist clients from around the world with their applications to live, study and work in Canada.',
-      mission: 'My mission',
+      subtitle: 'Corporate-grade support for regulated immigration.',
+      bio: 'As a regulated Canadian immigration consultant, I handle each mandate with the discipline of a corporate advisory firm. From Montreal, I guide families, talent and businesses through every Canadian jurisdiction.',
+      mission: 'Mission',
       missionText:
-        'To provide personalized and professional support to turn your Canadian dream into reality. Each file is unique and deserves special attention.',
-      values: 'Our values',
+        'Deliver clear, compliant and strategic decisions for every client. Trust rises when the method is structured and transparent.',
+      company: 'MIMBIMMIGRATION CONSULTANCY INC.',
+      values: 'Pillars',
       valueItems: [
         {
           icon: Shield,
-          title: 'Professionalism',
-          description: 'Regulated service compliant with Canadian standards',
+          title: 'Compliance',
+          description: 'Audited processes and strict respect of Canadian standards.',
         },
         {
           icon: Award,
           title: 'Excellence',
-          description: 'In-depth expertise in the Canadian immigration system',
+          description: 'Deep analysis and clear memorandums for every mandate.',
         },
         {
           icon: Users,
           title: 'Support',
-          description: 'Personalized assistance at every stage of the process',
+          description: 'Ongoing relationship and proactive client updates.',
         },
         {
           icon: Globe,
-          title: 'Diversity',
-          description: 'Bilingual service for French and English-speaking clients',
+          title: 'Bilingual',
+          description: 'Full service offered in French and English.',
         },
       ],
     },
   };
 
   return (
-    <section id="about" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            {content[language].title}
-          </h2>
-          <p className="text-xl text-blue-600">{content[language].subtitle}</p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          <div className="space-y-6">
-            <p className="text-lg text-gray-700 leading-relaxed">
-              {content[language].bio}
-            </p>
-
-            <div className="bg-blue-50 p-6 rounded-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                {content[language].mission}
-              </h3>
-              <p className="text-gray-700 leading-relaxed">
-                {content[language].missionText}
+    <section
+      id="about"
+      className="py-24 relative overflow-hidden bg-brand-navy/90"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy to-brand-red/30 opacity-90" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12">
+          <div className="space-y-8">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+                {language === 'fr' ? 'Expertise' : 'Expertise'}
               </p>
+              <h2 className="text-4xl font-semibold text-white mb-3">
+                {content[language].title}
+              </h2>
+              <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
             </div>
 
-            <div className="bg-orange-50 p-6 rounded-lg">
-              <div className="text-center">
-                <p className="text-sm text-gray-600 uppercase tracking-wide mb-2">
-                  {language === 'fr' ? 'Société' : 'Company'}
+            <p className="text-brand-light/80 leading-relaxed">{content[language].bio}</p>
+
+            <div className="grid gap-6">
+              <div className="rounded-3xl border border-white/15 bg-white/5 p-8">
+                <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70 mb-2">
+                  {content[language].mission}
                 </p>
-                <p className="text-xl font-bold text-gray-900">
-                  MIMBIMMIGRATION CONSULTANCY INC.
+                <p className="text-lg text-white">{content[language].missionText}</p>
+              </div>
+              <div className="rounded-3xl border border-brand-red/30 bg-brand-red/10 p-8">
+                <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70 mb-2">
+                  {language === 'fr' ? 'Societe' : 'Company'}
                 </p>
-                <p className="text-blue-600 mt-2">www.mimbimmigration.ca</p>
+                <p className="text-2xl font-semibold text-white">
+                  {content[language].company}
+                </p>
               </div>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">
-              {content[language].values}
-            </h3>
-            <div className="space-y-6">
-              {content[language].valueItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex gap-4 p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                      <item.icon className="text-white" size={24} />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-gray-600">{item.description}</p>
-                  </div>
-                </div>
-              ))}
+          <div className="space-y-6">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+                {content[language].values}
+              </p>
             </div>
+            {content[language].valueItems.map((item) => (
+              <div
+                key={item.title}
+                className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-6"
+              >
+                <div className="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center flex-shrink-0">
+                  <item.icon className="text-white" size={24} />
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-white">{item.title}</p>
+                  <p className="text-brand-light/80">{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ function App() {
   const [language, setLanguage] = useState<'fr' | 'en'>('fr');
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-brand-gradient text-white">
       <Navigation language={language} setLanguage={setLanguage} />
       <Hero language={language} />
       <About language={language} />
