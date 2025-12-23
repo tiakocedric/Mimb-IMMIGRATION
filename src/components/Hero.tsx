@@ -56,15 +56,33 @@ export default function Hero({ language }: HeroProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
-            <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-brand-light uppercase font-bold tracking-[0.4em]  text-sm sm:text-base">
-              {content[language].badge}
-            </span>
+            <div className="flex flex-wrap items-center gap-4">
+              <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-brand-light uppercase font-bold tracking-[0.4em] text-sm sm:text-base">
+                {content[language].badge}
+              </span>
+              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-brand-red/90 border-2 border-white/30 shadow-lg backdrop-blur">
+                <img
+                  src={CricLogo}
+                  alt="CICC-ICCRC"
+                  className="h-8 w-auto"
+                  loading="lazy"
+                />
+                <div className="flex flex-col leading-tight">
+                  <span className="text-xs font-bold tracking-[0.3em] text-white">
+                    CICC-ICCRC
+                  </span>
+                  <span className="text-[9px] uppercase tracking-[0.3em] text-white/90">
+                    {language === 'fr' ? 'Membre réglementé' : 'Regulated member'}
+                  </span>
+                </div>
+              </div>
+            </div>
             <div className="space-y-3">
-        
+
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-white">
                 {content[language].title}
               </h1>
-         
+
             </div>
             <p className="text-lg text-brand-light/80 leading-relaxed max-w-2xl">
               {content[language].description}
