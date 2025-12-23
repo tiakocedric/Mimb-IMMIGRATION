@@ -52,15 +52,15 @@ export default function Hero({ language }: HeroProps) {
   };
 
   return (
-    <section id="home" className="pt-24 lg:pt-32 pb-16 bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+    <section id="home" className="pt-24 lg:pt-32 pb-16 bg-gradient-to-br from-surface to-main transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
             <div className="flex flex-wrap items-center gap-4">
-              <span className="inline-flex items-center px-6 py-2 rounded-full bg-blue-100 text-blue-800 dark:bg-white/15 dark:text-brand-light uppercase font-bold tracking-[0.4em] text-sm sm:text-base">
+              <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-txt-primary uppercase font-bold tracking-[0.4em] text-sm sm:text-base">
                 {content[language].badge}
               </span>
-              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-blue-600 border-2 border-blue-100 shadow-lg backdrop-blur hover:bg-blue-700 transition-colors">
+              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-brand-red border-2 border-white/30 shadow-lg backdrop-blur hover:bg-brand-red/90 transition-colors">
                 <img
                   src={CricLogo}
                   alt="CICC-ICCRC"
@@ -79,12 +79,12 @@ export default function Hero({ language }: HeroProps) {
             </div>
             <div className="space-y-3">
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-gray-900 dark:text-white">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-txt-primary">
                 {content[language].title}
               </h1>
 
             </div>
-            <p className="text-lg text-gray-700 dark:text-brand-light/80 leading-relaxed max-w-2xl">
+            <p className="text-lg text-txt-secondary leading-relaxed max-w-2xl">
               {content[language].description}
             </p>
 
@@ -92,7 +92,7 @@ export default function Hero({ language }: HeroProps) {
               {content[language].highlights.map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-blue-200 bg-white px-4 py-5 text-center text-sm font-semibold tracking-wide text-blue-900 shadow-sm hover:shadow-md transition-shadow dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  className="rounded-2xl border border-ui bg-surface px-4 py-5 text-center text-sm font-semibold tracking-wide text-txt-primary shadow-sm hover:shadow-md transition-all hover:bg-hover-ui"
                 >
                   {item}
                 </div>
@@ -102,51 +102,51 @@ export default function Hero({ language }: HeroProps) {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => scrollToSection('#appointment')}
-                className="px-8 py-4 bg-blue-600 text-white rounded-full font-semibold shadow-lg shadow-blue-500/30 hover:bg-blue-700 hover:translate-y-[-2px] transition-all"
+                className="px-8 py-4 bg-brand-red text-white rounded-full font-semibold shadow-lg shadow-brand-red/30 hover:bg-brand-red/90 hover:translate-y-[-2px] transition-all"
               >
                 {content[language].ctaAppointment}
               </button>
               <button
                 onClick={() => scrollToSection('#contact')}
-                className="px-8 py-4 border border-blue-300 text-blue-700 rounded-full font-semibold hover:bg-blue-50 transition-colors dark:border-white/30 dark:text-white dark:hover:bg-white/10"
+                className="px-8 py-4 border border-ui text-txt-primary rounded-full font-semibold hover:bg-hover-ui transition-colors"
               >
                 {content[language].ctaContact}
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-6 pt-4 text-sm text-gray-700 dark:text-brand-light/80">
+            <div className="flex flex-wrap gap-6 pt-4 text-sm text-txt-secondary">
               <div className="flex items-center gap-3">
-                <span className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shadow-md">
+                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-md">
                   <Phone size={20} className="text-white" />
                 </span>
-                <a href="tel:+15144627623" className="hover:text-blue-700 dark:hover:text-white transition-colors">
+                <a href="tel:+15144627623" className="hover:text-txt-primary transition-colors">
                   (514) 462-7623
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shadow-md">
+                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-md">
                   <Mail size={20} className="text-white" />
                 </span>
                 <a
                   href="mailto:fmimb@yahoo.fr"
-                  className="hover:text-blue-700 dark:hover:text-white transition-colors"
+                  className="hover:text-txt-primary transition-colors"
                 >
                   fmimb@yahoo.fr
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <span className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shadow-md">
+                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-md">
                   <MapPin size={20} className="text-white" />
                 </span>
-                <span className="dark:text-white">Montréal, Québec, Canada</span>
+                <span>Montréal, Québec, Canada</span>
               </div>
             </div>
           </div>
 
           <div className="relative">
-            <div className="bg-white border border-gray-200 rounded-[32px] p-10 shadow-2xl dark:bg-white/10 dark:border-white/10 dark:backdrop-blur-md">
+            <div className="bg-surface border border-ui rounded-[32px] p-10 shadow-2xl">
               <div className="flex items-center gap-6">
-                <div className="w-28 h-28 rounded-full border-2 border-blue-600 overflow-hidden shadow-xl">
+                <div className="w-28 h-28 rounded-full border-2 border-brand-red overflow-hidden shadow-xl">
                   <img
                     src={AdvisorPhoto}
                     alt="Mimb Franklin"
@@ -155,10 +155,10 @@ export default function Hero({ language }: HeroProps) {
                   />
                 </div>
                 <div>
-                  <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <p className="text-2xl font-semibold text-txt-primary">
                     {content[language].advisor}
                   </p>
-                  <p className="text-blue-700 dark:text-brand-light/70 tracking-[0.4em] text-xs uppercase">
+                  <p className="text-brand-red tracking-[0.4em] text-xs uppercase">
                     {content[language].advisorRole}
                   </p>
                 </div>
@@ -168,16 +168,16 @@ export default function Hero({ language }: HeroProps) {
                 {content[language].stats.map((stat) => (
                   <div
                     key={stat.label}
-                    className="flex items-center justify-between rounded-2xl bg-blue-50 border border-blue-100 px-6 py-4 hover:shadow-md transition-shadow dark:bg-brand-navy/60 dark:border-white/5"
+                    className="flex items-center justify-between rounded-2xl bg-surface border border-ui px-6 py-4 hover:shadow-md transition-all hover:bg-hover-ui"
                   >
-                    <p className="text-3xl font-semibold text-blue-600 dark:text-white">{stat.value}</p>
-                    <p className="text-sm text-gray-600 dark:text-brand-light/70 text-right">{stat.label}</p>
+                    <p className="text-3xl font-semibold text-brand-red">{stat.value}</p>
+                    <p className="text-sm text-txt-secondary text-right">{stat.label}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-blue-400/30 blur-2xl opacity-70 dark:bg-brand-red/80" />
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-blue-200/40 blur-3xl opacity-70 dark:bg-brand-light/30" />
+            <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-brand-red/20 blur-2xl opacity-70" />
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-brand-light/20 blur-3xl opacity-70" />
           </div>
         </div>
       </div>
