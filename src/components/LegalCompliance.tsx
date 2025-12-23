@@ -88,88 +88,86 @@ export default function LegalCompliance({ language }: LegalComplianceProps) {
   };
 
   return (
-    <section className="py-24 bg-brand-navy/85 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy/95 to-brand-red/20 opacity-90" />
+    <section className="py-24 bg-surface/95 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-main via-main/95 to-brand-red/20 opacity-90" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white/10 border-2 border-brand-red/50 backdrop-blur shadow-xl">
-              <img
-                src={CricLogo}
-                alt="CICC-ICCRC"
-                className="h-12 w-auto"
-                loading="lazy"
-              />
-              <div className="flex flex-col items-start leading-tight">
-                <span className="text-sm font-bold tracking-[0.3em] text-white">
-                  CICC-ICCRC
-                </span>
-                <span className="text-xs uppercase tracking-[0.3em] text-white/80">
-                  {language === 'fr' ? 'Consultant réglementé' : 'Regulated consultant'}
-                </span>
-              </div>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6 bg-surface/80 backdrop-blur-sm p-8 rounded-2xl border border-ui">
+            <p className="text-lg text-txt-secondary leading-relaxed">
+              {content[language].description}
+            </p>
+
+            <div className="mt-12 space-y-8">
+              {content[language].guarantees.map((item, index) => (
+                <div key={index} className="flex gap-4 p-4 rounded-xl hover:bg-hover-ui transition-colors">
+                  <div className="flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-brand-red/10 text-brand-red">
+                      <item.icon className="h-6 w-6" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-txt-primary">{item.title}</h3>
+                    <p className="mt-1 text-txt-secondary">{item.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <h2 className="text-4xl font-semibold text-white mb-4">
-            {content[language].title}
-          </h2>
-          <p className="text-xl text-brand-light/80 mb-4 max-w-3xl mx-auto">
-            {content[language].subtitle}
-          </p>
-          <p className="text-brand-light/70 max-w-3xl mx-auto leading-relaxed">
-            {content[language].description}
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {content[language].guarantees.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur hover:bg-white/10 transition-colors"
-            >
-              <div className="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center mb-4">
-                <item.icon className="text-white" size={26} />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-              <p className="text-brand-light/80 text-sm leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          ))}
+          <div>
+            <h2 className="text-4xl font-bold tracking-tight text-txt-primary sm:text-5xl">
+              {content[language].title}
+            </h2>
+            <p className="mt-4 text-xl text-txt-secondary max-w-3xl mx-auto">
+              {content[language].subtitle}
+            </p>
+            <p className="text-brand-light/70 max-w-3xl mx-auto leading-relaxed">
+              {content[language].description}
+            </p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          <div className="rounded-3xl border border-white/15 bg-white/5 p-8 backdrop-blur">
-            <h3 className="text-2xl font-semibold text-white mb-4">
+          <div className="bg-surface border border-ui rounded-2xl p-8 shadow-xl">
+            <h3 className="text-2xl font-bold text-txt-primary mb-6">
               {content[language].verifyTitle}
             </h3>
-            <p className="text-brand-light/80 mb-6 leading-relaxed">
+            <p className="text-txt-secondary mb-6">
               {content[language].verifyDescription}
             </p>
             <a
               href="https://college-ic.ca/protecting-the-public/find-an-immigration-consultant"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-red text-white font-semibold hover:translate-y-[-2px] transition-transform shadow-lg shadow-brand-red/30"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-brand-red hover:bg-brand-red/90 shadow-sm transition-colors"
             >
               {content[language].verifyButton}
             </a>
-          </div>
 
-          <div className="rounded-3xl border border-brand-red/40 bg-brand-red/10 p-8 backdrop-blur">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center flex-shrink-0">
-                <Shield className="text-white" size={24} />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {content[language].warningTitle}
-                </h3>
-                <p className="text-brand-light/90 leading-relaxed">
-                  {content[language].warningText}
-                </p>
+            <div className="mt-10 p-4 bg-yellow-50 border-l-4 border-yellow-500 rounded-r dark:bg-yellow-900/30">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg
+                    className="h-5 w-5 text-yellow-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
+                    {content[language].warningTitle}
+                  </h3>
+                  <div className="mt-2 text-sm text-yellow-700 dark:text-yellow-200">
+                    <p>{content[language].warningText}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

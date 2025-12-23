@@ -75,62 +75,74 @@ export default function About({ language }: AboutProps) {
   return (
     <section
       id="about"
-      className="py-24 relative overflow-hidden bg-brand-navy/90"
+      className="py-24 relative overflow-hidden bg-surface/95"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy to-brand-red/30 opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-br from-main via-main to-brand-red/30 opacity-90" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="space-y-8">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-txt-secondary mb-3">
                 {language === 'fr' ? 'Expertise' : 'Expertise'}
               </p>
-              <h2 className="text-4xl font-semibold text-white mb-3">
+              <h2 className="text-4xl font-semibold text-txt-primary mb-3">
                 {content[language].title}
               </h2>
-              <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
+              <p className="text-xl text-txt-secondary">{content[language].subtitle}</p>
             </div>
 
-            <p className="text-brand-light/80 leading-relaxed">{content[language].bio}</p>
+            <p className="text-txt-secondary leading-relaxed">{content[language].bio}</p>
 
             <div className="grid gap-6">
-              <div className="rounded-3xl border border-white/15 bg-white/5 p-8">
-                <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70 mb-2">
+              <div className="rounded-3xl border border-ui bg-surface p-8 shadow-lg">
+                <p className="text-sm uppercase tracking-[0.4em] text-txt-secondary mb-2">
                   {content[language].mission}
                 </p>
-                <p className="text-lg text-white">{content[language].missionText}</p>
-              </div>
-              <div className="rounded-3xl border border-brand-red/30 bg-brand-red/10 p-8">
-                <p className="text-sm uppercase tracking-[0.4em] text-brand-light/70 mb-2">
-                  {language === 'fr' ? 'Société' : 'Company'}
+                <p className="text-txt-primary text-lg leading-relaxed">
+                  {content[language].missionText}
                 </p>
-                <p className="text-2xl font-semibold text-white">
+              </div>
+
+              <div className="rounded-3xl border border-ui bg-surface p-6 shadow-sm">
+                <p className="text-sm text-txt-secondary mb-1">
                   {content[language].company}
+                </p>
+                <p className="text-txt-secondary/70 text-sm">
+                  {language === 'fr' ? 'Inscrit au registre du CICC' : 'Registered with CICC'}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+          <div>
+            <div className="sticky top-24">
+              <h3 className="text-2xl font-semibold text-txt-primary mb-8">
                 {content[language].values}
-              </p>
-            </div>
-            {content[language].valueItems.map((item) => (
-              <div
-                key={item.title}
-                className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-6"
-              >
-                <div className="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center flex-shrink-0">
-                  <item.icon className="text-white" size={24} />
-                </div>
-                <div>
-                  <p className="text-lg font-semibold text-white">{item.title}</p>
-                  <p className="text-brand-light/80">{item.description}</p>
-                </div>
+              </h3>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {content[language].valueItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="rounded-2xl border border-ui bg-surface p-6 hover:bg-hover-ui transition-colors shadow-sm"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex-shrink-0 h-12 w-12 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red">
+                        <item.icon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-txt-primary">
+                          {item.title}
+                        </h4>
+                        <p className="mt-1 text-txt-secondary text-sm">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
