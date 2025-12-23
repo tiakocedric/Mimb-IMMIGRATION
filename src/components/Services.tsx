@@ -98,25 +98,26 @@ export default function Services({ language }: ServicesProps) {
   };
 
   return (
-    <section id="services" className="py-24 bg-brand-navy/95">
+    <section id="services" className="py-24 bg-surface/95 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-main/95 to-brand-red/20 opacity-90" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12">
           <div className="space-y-8">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-txt-secondary mb-3">
                 {language === 'fr' ? 'Services' : 'Services'}
               </p>
-              <h2 className="text-4xl font-semibold text-white mb-4">
+              <h2 className="text-4xl font-semibold text-txt-primary mb-4">
                 {content[language].title}
               </h2>
-              <p className="text-xl text-brand-light/80">{content[language].subtitle}</p>
+              <p className="text-xl text-txt-secondary">{content[language].subtitle}</p>
             </div>
 
             <div className="space-y-4">
               {content[language].guarantees.map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-[0.3em]"
+                  className="flex items-center gap-3 text-txt-primary text-sm uppercase tracking-[0.3em]"
                 >
                   <span className="w-3 h-3 rounded-full bg-brand-red" />
                   {item}
@@ -126,7 +127,7 @@ export default function Services({ language }: ServicesProps) {
 
             <button
               onClick={scrollToAppointment}
-              className="px-10 py-4 rounded-full bg-brand-red text-white font-semibold hover:translate-y-[-2px] transition-transform shadow-lg shadow-brand-red/30"
+              className="px-10 py-4 rounded-full bg-brand-red text-white font-semibold hover:translate-y-[-2px] hover:shadow-lg transition-all"
             >
               {content[language].cta}
             </button>
@@ -136,14 +137,14 @@ export default function Services({ language }: ServicesProps) {
             {content[language].services.map((service) => (
               <div
                 key={service.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6 flex flex-col gap-4"
+                className="rounded-3xl border border-ui bg-surface p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-all hover:border-hover-ui"
               >
                 <div className="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center">
                   <service.icon className="text-white" size={26} />
                 </div>
-                <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
-                <p className="text-brand-light/80">{service.description}</p>
-                <div className="mt-auto pt-4 text-sm text-brand-light/60 uppercase tracking-[0.4em]">
+                <h3 className="text-2xl font-semibold text-txt-primary">{service.title}</h3>
+                <p className="text-txt-secondary">{service.description}</p>
+                <div className="mt-auto pt-4 text-xs text-txt-secondary uppercase tracking-[0.4em] font-medium">
                   {language === 'fr' ? 'Réglementé' : 'Regulated'}
                 </div>
               </div>

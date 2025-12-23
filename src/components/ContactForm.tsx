@@ -85,19 +85,20 @@ export default function ContactForm({ language }: ContactFormProps) {
   };
 
   const inputClasses =
-    'w-full px-4 py-3 rounded-2xl bg-brand-navy/40 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-brand-red/60 transition-all';
+    'w-full px-4 py-3 rounded-2xl bg-surface border border-ui text-txt-primary placeholder-txt-secondary/50 focus:outline-none focus:ring-2 focus:ring-brand-red/60 transition-all hover:border-hover-ui';
 
   return (
-    <section id="contact" className="py-24 bg-brand-navy/95">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 bg-surface/95 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-main/95 to-brand-red/20 opacity-90" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12">
-          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 lg:p-10 space-y-8">
+          <div className="rounded-[32px] border border-ui bg-surface p-8 lg:p-10 space-y-8 shadow-lg">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-brand-light/70 mb-3">
+              <p className="text-xs uppercase tracking-[0.4em] text-txt-secondary mb-3">
                 {language === 'fr' ? 'Disponibilité' : 'Availability'}
               </p>
-              <h2 className="text-4xl font-semibold text-white">{content[language].title}</h2>
-              <p className="text-xl text-brand-light/80 mt-3">{content[language].subtitle}</p>
+              <h2 className="text-4xl font-semibold text-txt-primary">{content[language].title}</h2>
+              <p className="text-xl text-txt-secondary mt-3">{content[language].subtitle}</p>
             </div>
 
             <div className="space-y-6">
@@ -114,12 +115,12 @@ export default function ContactForm({ language }: ContactFormProps) {
                 },
                 { icon: MapPin, label: 'Montréal, Québec, Canada' },
               ].map((item) => (
-                <div key={item.label} className="flex items-center gap-4 text-white/80">
-                  <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center">
-                    <item.icon size={20} className="text-white" />
+                <div key={item.label} className="flex items-center gap-4 text-txt-secondary">
+                  <span className="w-12 h-12 rounded-full bg-brand-red/10 flex items-center justify-center">
+                    <item.icon size={20} className="text-brand-red" />
                   </span>
                   {item.href ? (
-                    <a href={item.href} className="hover:text-white transition-colors">
+                    <a href={item.href} className="hover:text-txt-primary transition-colors">
                       {item.label}
                     </a>
                   ) : (
@@ -129,12 +130,12 @@ export default function ContactForm({ language }: ContactFormProps) {
               ))}
             </div>
 
-            <div className="rounded-3xl border border-brand-red/30 bg-brand-red/10 p-6 text-brand-light">
-              <p className="uppercase tracking-[0.4em] text-sm mb-2">
+            <div className="rounded-3xl border border-brand-red/30 bg-brand-red/5 p-6 text-txt-primary">
+              <p className="uppercase tracking-[0.4em] text-sm mb-2 text-brand-red">
                 {language === 'fr' ? 'Horaires' : 'Schedule'}
               </p>
-              <p className="text-2xl font-semibold text-white">09h - 17h EST</p>
-              <p className="text-brand-light/80 mt-2">
+              <p className="text-2xl font-semibold text-txt-primary">09h - 17h EST</p>
+              <p className="text-txt-secondary mt-2">
                 {language === 'fr'
                   ? 'Disponibilité flexible pour les clients internationaux.'
                   : 'Flexible availability for international clients.'}
@@ -142,23 +143,23 @@ export default function ContactForm({ language }: ContactFormProps) {
             </div>
           </div>
 
-          <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 lg:p-10">
+          <div className="rounded-[32px] border border-ui bg-surface p-8 lg:p-10 shadow-lg">
             {isSuccess && (
-              <div className="mb-6 flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-brand-light">
-                <CheckCircle className="text-brand-red" size={22} />
+              <div className="mb-6 flex items-center gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-800">
+                <CheckCircle className="text-green-500" size={22} />
                 <p>{content[language].success}</p>
               </div>
             )}
 
             {error && (
-              <div className="mb-6 rounded-2xl border border-brand-red/40 bg-brand-red/10 px-4 py-3 text-white">
+              <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-800">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="full_name" className="block text-sm font-semibold text-white mb-2">
+                <label htmlFor="full_name" className="block text-sm font-semibold text-txt-primary mb-2">
                   {content[language].name}
                 </label>
                 <input
@@ -174,7 +175,7 @@ export default function ContactForm({ language }: ContactFormProps) {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-white mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-txt-primary mb-2">
                   {content[language].email}
                 </label>
                 <input
@@ -190,7 +191,7 @@ export default function ContactForm({ language }: ContactFormProps) {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-white mb-2">
+                <label htmlFor="phone" className="block text-sm font-semibold text-txt-primary mb-2">
                   {content[language].phone}
                 </label>
                 <input
@@ -206,7 +207,7 @@ export default function ContactForm({ language }: ContactFormProps) {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-white mb-2">
+                <label htmlFor="message" className="block text-sm font-semibold text-txt-primary mb-2">
                   {content[language].message}
                 </label>
                 <textarea
@@ -224,7 +225,7 @@ export default function ContactForm({ language }: ContactFormProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-8 py-4 rounded-full bg-brand-red text-white font-semibold flex items-center justify-center gap-2 hover:translate-y-[-2px] transition-transform disabled:bg-white/20 disabled:text-white/50"
+                className="w-full px-8 py-4 rounded-full bg-brand-red text-white font-semibold flex items-center justify-center gap-2 hover:translate-y-[-2px] hover:shadow-lg transition-all disabled:bg-gray-300 disabled:text-gray-500"
               >
                 <Send size={20} />
                 {isSubmitting ? content[language].submitting : content[language].submit}
