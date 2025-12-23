@@ -4,6 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        main: 'var(--color-bg-main)',
+        surface: 'var(--color-bg-card)',
+        'canada-red': 'var(--color-canada-red)',
+        'txt-primary': 'var(--color-text-main)',
+        'txt-secondary': 'var(--color-text-secondary)',
+        'border-ui': 'var(--color-border)',
+        'hover-ui': 'var(--color-hover)',
         'brand-red': '#D51C29',
         'brand-navy': '#0B1F34',
         'brand-light': '#E5ECF4',
@@ -13,7 +20,7 @@ export default {
         body: ['"Open Sans"', 'sans-serif'],
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(135deg, #0B1F34 0%, #D51C29 100%)',
+        'brand-gradient': 'linear-gradient(135deg, var(--color-bg-main) 0%, var(--color-canada-red) 100%)',
       },
     },
   },

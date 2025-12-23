@@ -1,6 +1,7 @@
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
 import CricLogo from '../assets/cric-cisr-logo.svg';
+import { useTheme } from '../hooks/useTheme';
 
 interface NavigationProps {
   language: 'fr' | 'en';
@@ -9,6 +10,7 @@ interface NavigationProps {
 
 export default function Navigation({ language, setLanguage }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = {
     fr: [
@@ -90,7 +92,14 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
             {renderLinks('desktop')}
           </div>
 
-          <div className="hidden md:flex">
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+              title={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <LanguageToggle variant="desktop" />
           </div>
 
@@ -115,7 +124,16 @@ export default function Navigation({ language, setLanguage }: NavigationProps) {
             >
               {language === 'fr' ? 'Prendre rendez-vous' : 'Book a consultation'}
             </button>
-            <LanguageToggle variant="mobile" />
+            <div className="flex gap-3">
+              <button
+                onClick={toggleTheme}
+                className="flex-1 px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 transition-colors text-white font-semibold flex items-center justify-center gap-2"
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                {theme === 'dark' ? 'Clair' : 'Sombre'}
+              </button>
+              <LanguageToggle variant="mobile" />
+            </div>
           </div>
         </div>
       )}

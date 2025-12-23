@@ -7,10 +7,28 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --color-bg-main: #0B1F34;
+    --color-bg-card: #132541;
+    --color-text-main: #FFFFFF;
+    --color-text-secondary: #E5ECF4;
+    --color-canada-red: #D51C29;
+    --color-border: #1a3448;
+    --color-hover: #1a3448;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+    --color-bg-main: #FAFAFA;
+    --color-bg-card: #FFFFFF;
+    --color-text-main: #0B1F34;
+    --color-text-secondary: #4B5563;
+    --color-canada-red: #D51C29;
+    --color-border: #E5E5E5;
+    --color-hover: #F3F4F6;
   }
 
   body {
-    @apply bg-brand-navy text-white font-body antialiased;
+    @apply bg-main text-txt-primary font-body antialiased transition-colors duration-300;
   }
 
   h1,
