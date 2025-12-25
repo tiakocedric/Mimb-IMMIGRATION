@@ -78,8 +78,8 @@ export default function Hero({ language }: HeroProps) {
           >
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20">
-              <Shield size={14} className="text-primary sm:w-4 sm:h-4" />
-              <span className="text-xs sm:text-sm font-medium text-primary">{content[language].badge}</span>
+              <span className="text-xs sm:text-sm font-medium text-primary">MIMBIMMIGRATION
+CONSULTANCY INC.</span>
             </div>
 
             {/* Title */}
