@@ -1,4 +1,5 @@
-import { Briefcase, GraduationCap, Heart, Home, Plane } from 'lucide-react';
+import { Briefcase, GraduationCap, Heart, Home, Plane, ArrowRight, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ServicesProps {
   language: 'fr' | 'en';
@@ -7,150 +8,188 @@ interface ServicesProps {
 export default function Services({ language }: ServicesProps) {
   const content = {
     fr: {
-      title: 'Solutions corporate pour chaque programme',
-      subtitle: 'Stratège dédié, contrôle de conformité et suivi proactif.',
+      sectionLabel: 'Services',
+      title: 'Solutions d\'immigration complètes',
+      subtitle: 'Expertise réglementée pour tous les programmes d\'immigration canadienne.',
       cta: 'Planifier une consultation',
       guarantees: [
         'Analyse complète du dossier',
         'Documents préparés et vérifiés',
-        'Relation bilingue FR/EN',
+        'Service bilingue FR/EN',
       ],
       services: [
         {
           icon: Home,
           title: 'Résidence permanente',
-          description:
-            'Planification Entrée Express, travailleurs qualifiés, parrainage familial et programmes provinciaux.',
+          description: 'Entrée Express, travailleurs qualifiés, parrainage familial et programmes provinciaux.',
+          features: ['Entrée Express', 'PNP', 'Parrainage familial'],
         },
         {
           icon: Briefcase,
           title: 'Permis de travail',
-          description:
-            'EIMT, mobilité francophone, transferts intra-entreprises et permis ouverts.',
+          description: 'EIMT, mobilité francophone, transferts intra-entreprises et permis ouverts.',
+          features: ['EIMT', 'Mobilité francophone', 'Transferts'],
         },
         {
           icon: GraduationCap,
           title: 'Permis d\'études',
-          description:
-            'Stratégie CAQ, permis d\'études, permis post-diplôme et changements de statut.',
+          description: 'CAQ, permis d\'études, permis post-diplôme et changements de statut.',
+          features: ['CAQ', 'PTPD', 'Changement de statut'],
         },
         {
           icon: Plane,
           title: 'Visas visiteurs',
-          description:
-            'Visas visiteurs, super visas, prolongations de séjour et restaurations de statut.',
+          description: 'Visas visiteurs, super visas, prolongations et restaurations de statut.',
+          features: ['Visa visiteur', 'Super visa', 'Prolongation'],
         },
         {
           icon: Heart,
           title: 'Protection et asile',
-          description: 'Demandes d\'asile, statuts de réfugiés et mesures de protection.',
+          description: 'Demandes d\'asile, statuts de réfugiés et mesures de protection humanitaire.',
+          features: ['Demande d\'asile', 'Statut de réfugié'],
         },
       ],
     },
     en: {
-      title: 'Corporate-grade solutions for every stream',
-      subtitle: 'Dedicated strategist, compliance control and proactive follow-up.',
-      cta: 'Book a consultation',
+      sectionLabel: 'Services',
+      title: 'Complete immigration solutions',
+      subtitle: 'Regulated expertise for all Canadian immigration programs.',
+      cta: 'Schedule a consultation',
       guarantees: [
-        'Full case assessment',
-        'Documents prepared & checked',
-        'Bilingual relationship FR/EN',
+        'Complete file analysis',
+        'Prepared and verified documents',
+        'Bilingual FR/EN service',
       ],
       services: [
         {
           icon: Home,
-          title: 'Permanent residence',
-          description:
-            'Express Entry, skilled workers, family sponsorship and provincial programs.',
+          title: 'Permanent Residence',
+          description: 'Express Entry, skilled workers, family sponsorship and provincial programs.',
+          features: ['Express Entry', 'PNP', 'Family sponsorship'],
         },
         {
           icon: Briefcase,
-          title: 'Work permits',
-          description:
-            'LMIAs, francophone mobility, intra-company transfers and open permits.',
+          title: 'Work Permits',
+          description: 'LMIA, Francophone mobility, intra-company transfers and open permits.',
+          features: ['LMIA', 'Francophone mobility', 'Transfers'],
         },
         {
           icon: GraduationCap,
-          title: 'Study permits',
-          description:
-            'CAQ strategy, study permits, post-graduation work permits and status changes.',
+          title: 'Study Permits',
+          description: 'CAQ, study permits, post-graduation permits and status changes.',
+          features: ['CAQ', 'PGWP', 'Status change'],
         },
         {
           icon: Plane,
-          title: 'Visitor visas',
-          description:
-            'Visitor visas, super visas, stay extensions and status restorations.',
+          title: 'Visitor Visas',
+          description: 'Visitor visas, super visas, extensions and status restorations.',
+          features: ['Visitor visa', 'Super visa', 'Extension'],
         },
         {
           icon: Heart,
-          title: 'Protection & asylum',
-          description: 'Asylum claims, refugee status and protective measures.',
+          title: 'Protection & Asylum',
+          description: 'Asylum claims, refugee status and humanitarian protection measures.',
+          features: ['Asylum claim', 'Refugee status'],
         },
       ],
     },
   };
 
-  const scrollToAppointment = () => {
-    const element = document.querySelector('#appointment');
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="services" className="py-24 bg-surface/95 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-main/95 to-brand-red/20 opacity-90" />
+    <section id="services" className="py-16 sm:py-20 lg:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12">
-          <div className="space-y-8">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-txt-secondary mb-3">
-                {language === 'fr' ? 'Services' : 'Services'}
-              </p>
-              <h2 className="text-4xl font-semibold text-txt-primary mb-4">
-                {content[language].title}
-              </h2>
-              <p className="text-xl text-txt-secondary">{content[language].subtitle}</p>
-            </div>
+        {/* Header */}
+        <motion.div 
+          className="max-w-3xl mx-auto text-center mb-8 sm:mb-10 lg:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-3 sm:mb-4 border border-primary/20">
+            {content[language].sectionLabel}
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-txt-primary mb-3 sm:mb-4">
+            {content[language].title}
+          </h2>
+          <p className="text-txt-secondary text-sm sm:text-base lg:text-lg px-4">
+            {content[language].subtitle}
+          </p>
+        </motion.div>
 
-            <div className="space-y-4">
-              {content[language].guarantees.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 text-txt-primary text-sm uppercase tracking-[0.3em]"
-                >
-                  <span className="w-3 h-3 rounded-full bg-brand-red" />
-                  {item}
-                </div>
-              ))}
-            </div>
-
-            <button
-              onClick={scrollToAppointment}
-              className="px-10 py-4 rounded-full bg-brand-red text-white font-semibold hover:translate-y-[-2px] hover:shadow-lg transition-all"
+        {/* Guarantees */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-8 sm:mb-10 lg:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          {content[language].guarantees.map((guarantee) => (
+            <div
+              key={guarantee}
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 lg:px-4 py-1.5 sm:py-2 bg-surface rounded-lg border border-border"
             >
-              {content[language].cta}
-            </button>
-          </div>
+              <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
+              <span className="text-xs sm:text-sm text-txt-primary font-medium">{guarantee}</span>
+            </div>
+          ))}
+        </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-6">
-            {content[language].services.map((service) => (
-              <div
-                key={service.title}
-                className="rounded-3xl border border-ui bg-surface p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-all hover:border-hover-ui"
-              >
-                <div className="w-14 h-14 rounded-full bg-brand-red flex items-center justify-center">
-                  <service.icon className="text-white" size={26} />
-                </div>
-                <h3 className="text-2xl font-semibold text-txt-primary">{service.title}</h3>
-                <p className="text-txt-secondary">{service.description}</p>
-                <div className="mt-auto pt-4 text-xs text-txt-secondary uppercase tracking-[0.4em] font-medium">
-                  {language === 'fr' ? 'Réglementé' : 'Regulated'}
-                </div>
+        {/* Services grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mb-8 sm:mb-10 lg:mb-12">
+          {content[language].services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              className="group bg-surface rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 border border-border hover:border-primary/30 transition-all hover:shadow-card-hover"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <div className="w-10 h-10 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 lg:mb-5 group-hover:bg-primary/20 transition-colors">
+                <service.icon className="w-5 h-5 sm:w-5.5 sm:h-5.5 lg:w-6 lg:h-6 text-primary" />
               </div>
-            ))}
-          </div>
+              <h3 className="font-heading font-semibold text-base sm:text-lg lg:text-xl text-txt-primary mb-2 sm:mb-3">
+                {service.title}
+              </h3>
+              <p className="text-txt-secondary text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
+                {service.description}
+              </p>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                {service.features.map((feature) => (
+                  <span
+                    key={feature}
+                    className="px-2 sm:px-2.5 py-0.5 sm:py-1 bg-muted text-txt-secondary text-[10px] sm:text-xs rounded-md font-medium"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* CTA */}
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <button
+            onClick={() => scrollToSection('#appointment')}
+            className="inline-flex items-center gap-2 px-5 sm:px-6 lg:px-8 py-3 sm:py-3.5 lg:py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-sm sm:text-base shadow-lg shadow-primary/20 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 transition-all"
+          >
+            {content[language].cta}
+            <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" />
+          </button>
+        </motion.div>
       </div>
     </section>
   );

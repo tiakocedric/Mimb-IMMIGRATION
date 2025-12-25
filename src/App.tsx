@@ -1,32 +1,39 @@
-import { useState } from 'react';
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import LegalCompliance from './components/LegalCompliance';
-import About from './components/About';
-import Services from './components/Services';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import AppointmentForm from './components/AppointmentForm';
-import ContactForm from './components/ContactForm';
-import Footer from './components/Footer';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/hooks/useAuth";
+import { ThemeProvider } from "@/hooks/useTheme";
+import Index from "./pages/Index";
+import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
+import Blog from "./pages/Blog";
+import NotFound from "./pages/NotFound";
 
-function App() {
-  const [language, setLanguage] = useState<'fr' | 'en'>('fr');
+const queryClient = new QueryClient();
 
-  return (
-    <div className="min-h-screen bg-brand-gradient text-white">
-      <Navigation language={language} setLanguage={setLanguage} />
-      <Hero language={language} />
-      <LegalCompliance language={language} />
-      <About language={language} />
-      <Services language={language} />
-      <Testimonials language={language} />
-      <FAQ language={language} />
-      <AppointmentForm language={language} />
-      <ContactForm language={language} />
-      <Footer language={language} />
-    </div>
-  );
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/blog" element={<Blog />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 
 export default App;

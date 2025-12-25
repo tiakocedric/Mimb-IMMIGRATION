@@ -1,14 +1,22 @@
 import { useState } from 'react';
-import { Calendar, CheckCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import type { Appointment } from '../types';
+import { Calendar, CheckCircle, Clock, ArrowRight, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 interface AppointmentFormProps {
   language: 'fr' | 'en';
 }
 
+const fadeInUp = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const }
+};
+
 export default function AppointmentForm({ language }: AppointmentFormProps) {
-  const [formData, setFormData] = useState<Appointment>({
+  const [formData, setFormData] = useState({
     full_name: '',
     email: '',
     phone: '',
@@ -19,29 +27,42 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
 
   const content = {
     fr: {
+      sectionLabel: 'Consultation',
       title: 'Planifier une consultation',
-      subtitle: 'Dossier analysé, stratégie proposée et calendrier confirmé.',
+      subtitle: 'Prenez rendez-vous avec un consultant réglementé pour discuter de votre projet d\'immigration.',
+      features: [
+        { icon: Clock, text: 'Réponse sous 24h' },
+        { icon: Shield, text: 'Consultation confidentielle' },
+        { icon: Calendar, text: 'Horaires flexibles' },
+      ],
+      responseTime: 'Délai de réponse moyen',
+      responseTimeValue: '< 24 heures',
       name: 'Nom complet',
-      email: 'Email',
+      email: 'Adresse email',
       phone: 'Téléphone',
       service: 'Service souhaité',
+      selectService: 'Sélectionnez un service',
       date: 'Date préférée',
       time: 'Heure préférée',
+      selectTime: 'Sélectionnez une heure',
       message: 'Message (optionnel)',
+      messagePlaceholder: 'Décrivez brièvement votre situation...',
       submit: 'Confirmer le rendez-vous',
       submitting: 'Envoi en cours...',
-      success: 'Rendez-vous demandé avec succès! Confirmation par email sous 24h.',
-      errorMsg: 'Une erreur est survenue. Merci de réessayer.',
+      success: 'Demande envoyée avec succès!',
+      successSubtext: 'Vous recevrez une confirmation par email sous 24h.',
+      error: 'Une erreur est survenue. Veuillez réessayer.',
       services: [
         'Résidence permanente',
         'Permis de travail',
         'Permis d\'études',
         'Visa visiteur',
+        'Super visa',
         'Demande d\'asile',
+        'Autre',
       ],
       times: [
         '09:00 - 10:00',
@@ -54,25 +75,39 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
       ],
     },
     en: {
-      title: 'Book a consultation',
-      subtitle: 'Case review, proposed strategy and confirmed timeline.',
+      sectionLabel: 'Consultation',
+      title: 'Schedule a consultation',
+      subtitle: 'Book an appointment with a regulated consultant to discuss your immigration project.',
+      features: [
+        { icon: Clock, text: 'Response within 24h' },
+        { icon: Shield, text: 'Confidential consultation' },
+        { icon: Calendar, text: 'Flexible schedule' },
+      ],
+      responseTime: 'Average response time',
+      responseTimeValue: '< 24 hours',
       name: 'Full name',
-      email: 'Email',
+      email: 'Email address',
       phone: 'Phone',
       service: 'Desired service',
+      selectService: 'Select a service',
       date: 'Preferred date',
       time: 'Preferred time',
+      selectTime: 'Select a time',
       message: 'Message (optional)',
+      messagePlaceholder: 'Briefly describe your situation...',
       submit: 'Confirm appointment',
       submitting: 'Sending...',
-      success: 'Appointment requested successfully! Confirmation within 24h.',
-      errorMsg: 'Something went wrong. Please try again.',
+      success: 'Request sent successfully!',
+      successSubtext: 'You will receive an email confirmation within 24h.',
+      error: 'An error occurred. Please try again.',
       services: [
         'Permanent residence',
         'Work permit',
         'Study permit',
         'Visitor visa',
+        'Super visa',
         'Asylum application',
+        'Other',
       ],
       times: [
         '09:00 - 10:00',
@@ -89,14 +124,22 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
+    
+    const { error } = await supabase.from('appointments').insert({
+      name: formData.full_name,
+      email: formData.email,
+      phone: formData.phone,
+      service_type: formData.service_type,
+      preferred_date: formData.preferred_date,
+      preferred_time: formData.preferred_time,
+      message: formData.message,
+    });
 
-    try {
-      const { error: submitError } = await supabase.from('appointments').insert([formData]);
-
-      if (submitError) throw submitError;
-
+    if (error) {
+      toast.error(content[language].error);
+    } else {
       setIsSuccess(true);
+      toast.success(content[language].success);
       setFormData({
         full_name: '',
         email: '',
@@ -106,234 +149,246 @@ export default function AppointmentForm({ language }: AppointmentFormProps) {
         preferred_time: '',
         message: '',
       });
-
       setTimeout(() => setIsSuccess(false), 5000);
-    } catch (err) {
-      setError(content[language].errorMsg);
-      console.error('Error submitting appointment:', err);
-    } finally {
-      setIsSubmitting(false);
     }
+    
+    setIsSubmitting(false);
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const today = new Date().toISOString().split('T')[0];
-
-  const inputClasses =
-    'w-full px-4 py-3 rounded-2xl bg-surface border border-ui text-txt-primary placeholder-txt-secondary/50 focus:outline-none focus:ring-2 focus:ring-brand-red/60 transition-all hover:border-hover-ui';
-
-  const appointmentPillars =
-    language === 'fr'
-      ? ['Confiance', 'Professionnalisme', 'Immigration réglementée']
-      : ['Trust', 'Professionalism', 'Regulated immigration'];
+  const inputClasses = "w-full px-4 py-3.5 bg-background border border-border rounded-lg text-txt-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all";
+  const selectClasses = "w-full px-4 py-3.5 bg-background border border-border rounded-lg text-txt-primary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all appearance-none cursor-pointer";
 
   return (
-    <section id="appointment" className="py-24 bg-surface/95 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-main/95 to-brand-red/20 opacity-90" />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <span className="inline-flex items-center gap-3 px-4 py-2 bg-surface border border-ui rounded-full text-txt-primary text-sm font-medium shadow-sm">
-                <Calendar size={20} className="text-brand-red" />
-                {language === 'fr'
-                  ? 'Consultation stratégique et réglementée'
-                  : 'Strategic, regulated consultation'}
-              </span>
-              <h2 className="text-4xl font-semibold text-txt-primary">{content[language].title}</h2>
-              <p className="text-xl text-txt-secondary">{content[language].subtitle}</p>
-            </div>
+    <section id="appointment" className="py-16 sm:py-20 lg:py-24 bg-section-gradient">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          className="text-center mb-10 sm:mb-12 lg:mb-16"
+          {...fadeInUp}
+        >
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-3 sm:mb-4 border border-primary/20">
+            {content[language].sectionLabel}
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-txt-primary mb-3 sm:mb-4">
+            {content[language].title}
+          </h2>
+          <p className="text-txt-secondary text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-4">
+            {content[language].subtitle}
+          </p>
+        </motion.div>
 
-            <div className="grid gap-4">
-              {appointmentPillars.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 text-txt-primary text-sm uppercase tracking-[0.4em]"
+        <div className="grid lg:grid-cols-5 gap-12">
+          {/* Info Column */}
+          <motion.div 
+            className="lg:col-span-2 space-y-6"
+            {...fadeInUp}
+          >
+            {/* Features */}
+            <div className="space-y-4">
+              {content[language].features.map((feature, index) => (
+                <motion.div
+                  key={feature.text}
+                  className="flex items-center gap-4 p-4 bg-surface rounded-xl border border-border"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <span className="w-3 h-3 rounded-full bg-brand-red" />
-                  {item}
-                </div>
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="text-txt-primary font-medium">{feature.text}</span>
+                </motion.div>
               ))}
             </div>
 
-            <div className="rounded-3xl border border-ui bg-surface p-6 space-y-4 shadow-sm">
-              <p className="text-sm uppercase tracking-[0.4em] text-txt-secondary">
-                {language === 'fr' ? 'Délai moyen de réponse' : 'Average response time'}
-              </p>
-              <p className="text-3xl font-semibold text-txt-primary">24h</p>
-              <p className="text-txt-secondary">
-                {language === 'fr'
-                  ? 'Nous confirmons chaque rendez-vous avec un briefing écrit et des documents requis.'
-                  : 'Each appointment is confirmed with a written brief and required documents.'}
-              </p>
-            </div>
-          </div>
+            {/* Response Time Card */}
+            <motion.div 
+              className="p-6 bg-primary/5 rounded-xl border border-primary/20"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <p className="text-sm text-txt-secondary mb-2">{content[language].responseTime}</p>
+              <p className="text-3xl font-heading font-bold text-primary">{content[language].responseTimeValue}</p>
+            </motion.div>
 
-          <div className="bg-surface border border-ui rounded-[32px] p-8 lg:p-10 shadow-lg">
-            {isSuccess && (
-              <div className="mb-6 flex items-center gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-800">
-                <CheckCircle className="text-green-500" size={22} />
-                <p>{content[language].success}</p>
+            {/* Trust Badge */}
+            <motion.div 
+              className="p-5 bg-surface rounded-xl border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <p className="font-medium text-txt-primary">CICC Member</p>
+                  <p className="text-sm text-txt-secondary">Regulated Consultant</p>
+                </div>
               </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Form Column */}
+          <motion.div 
+            className="lg:col-span-3"
+            {...fadeInUp}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {isSuccess ? (
+              <div className="bg-surface rounded-2xl p-12 border border-primary/20 text-center h-full flex flex-col items-center justify-center min-h-[500px]">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <CheckCircle className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-2xl font-heading font-semibold text-txt-primary mb-2">
+                  {content[language].success}
+                </h3>
+                <p className="text-txt-secondary">{content[language].successSubtext}</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="bg-surface rounded-2xl p-8 border border-border">
+                <div className="space-y-5">
+                  {/* Row 1: Name & Email */}
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-medium text-txt-primary mb-2">
+                        {content[language].name} <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="full_name"
+                        value={formData.full_name}
+                        onChange={handleChange}
+                        required
+                        className={inputClasses}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-txt-primary mb-2">
+                        {content[language].email} <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className={inputClasses}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 2: Phone & Service */}
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-medium text-txt-primary mb-2">
+                        {content[language].phone} <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                        className={inputClasses}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-txt-primary mb-2">
+                        {content[language].service} <span className="text-primary">*</span>
+                      </label>
+                      <select
+                        name="service_type"
+                        value={formData.service_type}
+                        onChange={handleChange}
+                        required
+                        className={selectClasses}
+                      >
+                        <option value="">{content[language].selectService}</option>
+                        {content[language].services.map((service) => (
+                          <option key={service} value={service}>{service}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Row 3: Date & Time */}
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-medium text-txt-primary mb-2">
+                        {content[language].date} <span className="text-primary">*</span>
+                      </label>
+                      <input
+                        type="date"
+                        name="preferred_date"
+                        value={formData.preferred_date}
+                        onChange={handleChange}
+                        required
+                        min={new Date().toISOString().split('T')[0]}
+                        className={inputClasses}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-txt-primary mb-2">
+                        {content[language].time} <span className="text-primary">*</span>
+                      </label>
+                      <select
+                        name="preferred_time"
+                        value={formData.preferred_time}
+                        onChange={handleChange}
+                        required
+                        className={selectClasses}
+                      >
+                        <option value="">{content[language].selectTime}</option>
+                        {content[language].times.map((time) => (
+                          <option key={time} value={time}>{time}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Row 4: Message */}
+                  <div>
+                    <label className="block text-sm font-medium text-txt-primary mb-2">
+                      {content[language].message}
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder={content[language].messagePlaceholder}
+                      rows={4}
+                      className={`${inputClasses} resize-none`}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+                  >
+                    {isSubmitting ? (
+                      content[language].submitting
+                    ) : (
+                      <>
+                        {content[language].submit}
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
             )}
-
-            {error && (
-              <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-800">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="full_name" className="block text-sm font-semibold text-txt-primary mb-2">
-                    {content[language].name}
-                  </label>
-                  <input
-                    type="text"
-                    id="full_name"
-                    name="full_name"
-                    value={formData.full_name}
-                    onChange={handleChange}
-                    required
-                    className={inputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-txt-primary mb-2">
-                    {content[language].email}
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className={inputClasses}
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold text-txt-primary mb-2">
-                    {content[language].phone}
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className={inputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="service_type"
-                    className="block text-sm font-semibold text-white mb-2"
-                  >
-                    {content[language].service}
-                  </label>
-                  <select
-                    id="service_type"
-                    name="service_type"
-                    value={formData.service_type}
-                    onChange={handleChange}
-                    required
-                    className={`${inputClasses} appearance-none`}
-                  >
-                    <option value="">--</option>
-                    {content[language].services.map((service) => (
-                      <option key={service} value={service} className="text-brand-navy">
-                        {service}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="preferred_date"
-                    className="block text-sm font-semibold text-white mb-2"
-                  >
-                    {content[language].date}
-                  </label>
-                  <input
-                    type="date"
-                    id="preferred_date"
-                    name="preferred_date"
-                    value={formData.preferred_date}
-                    onChange={handleChange}
-                    min={today}
-                    required
-                    className={inputClasses}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="preferred_time"
-                    className="block text-sm font-semibold text-white mb-2"
-                  >
-                    {content[language].time}
-                  </label>
-                  <select
-                    id="preferred_time"
-                    name="preferred_time"
-                    value={formData.preferred_time}
-                    onChange={handleChange}
-                    required
-                    className={`${inputClasses} appearance-none`}
-                  >
-                    <option value="">--</option>
-                    {content[language].times.map((time) => (
-                      <option value={time} className="text-txt-primary">
-                        {time}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-txt-primary mb-2">
-                  {content[language].message}
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className={`${inputClasses} resize-none`}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-8 py-4 rounded-full bg-brand-red text-white font-semibold flex items-center justify-center gap-2 hover:translate-y-[-2px] hover:shadow-lg transition-all disabled:bg-gray-300 disabled:text-gray-500"
-              >
-                <Calendar size={20} />
-                {isSubmitting ? content[language].submitting : content[language].submit}
-              </button>
-            </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

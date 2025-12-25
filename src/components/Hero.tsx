@@ -1,45 +1,54 @@
-import { Mail, MapPin, Phone } from 'lucide-react';
-import CricLogo from '../assets/cric-cisr-logo.svg';
-import AdvisorPhoto from '../assets/Photo de Mimb Franklin.jpg';
+import { ArrowRight, Award, MapPin, Phone, Shield, User } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useSiteContent } from '@/hooks/useSiteContent';
+import franclinPhoto from '@/assets/franclin-profile.jpeg';
 
 interface HeroProps {
   language: 'fr' | 'en';
 }
 
 export default function Hero({ language }: HeroProps) {
+  const { getContent, getImage } = useSiteContent();
+  
+  const consultantPhoto = getImage('consultant_photo');
+  const consultantName = getContent('consultant_name', language) || 'Mimb Franklin';
+  const consultantTitle = getContent('consultant_title', language) || (language === 'fr' ? 'Consultant CRIC' : 'RCIC Consultant');
+  const contactPhone = getContent('contact_phone', language) || '(514) 462-7623';
+  const contactAddress = getContent('contact_address', language) || 'Montréal, Québec';
+
   const content = {
     fr: {
-      badge: 'MIMBIMMIGRATION CONSULTANCY INC.',
-      title: 'Immigration réglementée, confiance garantie.',
-      subtitle: 'Consultant réglementé du Canada',
-      description:
-        'Accompagnement structuré, sérieux et conforme aux normes canadiennes pour transformer vos projets en réalité. Nous défendons vos intérêts avec la rigueur d\'un cabinet corporate.',
-      highlights: ['Confiance', 'Professionnalisme', 'Immigration réglementée'],
-      ctaAppointment: 'Planifier une consultation',
-      ctaContact: 'Parler à un expert',
-      advisor: 'Mimb Franklin',
-      advisorRole: 'Consultant CRIC',
+      badge: 'Consultant réglementé CICC',
+      title: 'Votre partenaire de confiance en',
+      titleHighlight: 'immigration canadienne',
+      description: 'Accompagnement professionnel et personnalisé pour concrétiser votre projet d\'immigration. Expertise réglementée, processus transparent, résultats prouvés.',
+      cta: 'Planifier une consultation',
+      ctaSecondary: 'Découvrir nos services',
       stats: [
-        { value: '98%', label: 'Clients satisfaits' },
-        { value: '15+', label: 'Programmes d\'immigration' },
-        { value: '2 langues', label: 'Français & Anglais' },
+        { value: '500+', label: 'Dossiers traités' },
+        { value: '98%', label: 'Taux de satisfaction' },
+        { value: '15+', label: 'Programmes maîtrisés' },
+      ],
+      credentials: [
+        { icon: Shield, text: 'Membre CICC' },
+        { icon: Award, text: 'Consultant réglementé' },
       ],
     },
     en: {
-      badge: 'MIMBIMMIGRATION CONSULTANCY INC.',
-      title: 'Regulated immigration, trust assured.',
-      subtitle: 'Regulated Canadian Consultant',
-      description:
-        'Structured, corporate-grade guidance that keeps every file compliant and every family confident. We secure your future in Canada with rigour and clarity.',
-      highlights: ['Trust', 'Professionalism', 'Regulated expertise'],
-      ctaAppointment: 'Schedule a consultation',
-      ctaContact: 'Speak with an expert',
-      advisor: 'Mimb Franklin',
-      advisorRole: 'CISR Consultant',
+      badge: 'CICC Regulated Consultant',
+      title: 'Your trusted partner in',
+      titleHighlight: 'Canadian immigration',
+      description: 'Professional and personalized guidance to make your immigration project a reality. Regulated expertise, transparent process, proven results.',
+      cta: 'Schedule a Consultation',
+      ctaSecondary: 'Explore Services',
       stats: [
-        { value: '98%', label: 'Satisfied clients' },
-        { value: '15+', label: 'Immigration streams' },
-        { value: '2 languages', label: 'French & English' },
+        { value: '500+', label: 'Cases handled' },
+        { value: '98%', label: 'Satisfaction rate' },
+        { value: '15+', label: 'Programs mastered' },
+      ],
+      credentials: [
+        { icon: Shield, text: 'CICC Member' },
+        { icon: Award, text: 'Regulated Consultant' },
       ],
     },
   };
@@ -52,133 +61,137 @@ export default function Hero({ language }: HeroProps) {
   };
 
   return (
-    <section id="home" className="pt-24 lg:pt-32 pb-16 bg-gradient-to-br from-surface to-main transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8">
-            <div className="flex flex-wrap items-center gap-4">
-              <span className="inline-flex items-center px-6 py-2 rounded-full bg-white/15 text-txt-primary uppercase font-bold tracking-[0.4em] text-sm sm:text-base">
-                {content[language].badge}
-              </span>
-              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-brand-red border-2 border-white/30 shadow-lg backdrop-blur hover:bg-brand-red/90 transition-colors">
-                <img
-                  src={CricLogo}
-                  alt="CICC-ICCRC"
-                  className="h-8 w-auto"
-                  loading="lazy"
-                />
-                <div className="flex flex-col leading-tight">
-                  <span className="text-xs font-bold tracking-[0.3em] text-white">
-                    CICC-ICCRC
-                  </span>
-                  <span className="text-[9px] uppercase tracking-[0.3em] text-white/90">
-                    {language === 'fr' ? 'Membre réglementé' : 'Regulated member'}
-                  </span>
-                </div>
-              </div>
+    <section id="home" className="relative min-h-screen flex items-center pt-16 sm:pt-20 pb-8 sm:pb-16 overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 bg-hero-gradient" />
+      <div className="absolute top-1/4 right-0 w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-[200px] sm:w-[300px] lg:w-[400px] h-[200px] sm:h-[300px] lg:h-[400px] bg-accent/5 rounded-full blur-3xl" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
+          {/* Content */}
+          <motion.div 
+            className="space-y-5 sm:space-y-6 lg:space-y-8 order-2 lg:order-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20">
+              <Shield size={14} className="text-primary sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium text-primary">{content[language].badge}</span>
             </div>
-            <div className="space-y-3">
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-txt-primary">
+            {/* Title */}
+            <div className="space-y-1 sm:space-y-2">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-semibold text-txt-primary leading-tight">
                 {content[language].title}
               </h1>
-
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary leading-tight">
+                {content[language].titleHighlight}
+              </h1>
             </div>
-            <p className="text-lg text-txt-secondary leading-relaxed max-w-2xl">
+
+            {/* Description */}
+            <p className="text-sm sm:text-base lg:text-lg text-txt-secondary leading-relaxed max-w-xl">
               {content[language].description}
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-4">
-              {content[language].highlights.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-ui bg-surface px-4 py-5 text-center text-sm font-semibold tracking-wide text-txt-primary shadow-sm hover:shadow-md transition-all hover:bg-hover-ui"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => scrollToSection('#appointment')}
-                className="px-8 py-4 bg-brand-red text-white rounded-full font-semibold shadow-lg shadow-brand-red/30 hover:bg-brand-red/90 hover:translate-y-[-2px] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 bg-primary text-primary-foreground rounded-lg font-semibold text-sm sm:text-base hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30"
               >
-                {content[language].ctaAppointment}
+                {content[language].cta}
+                <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
               <button
-                onClick={() => scrollToSection('#contact')}
-                className="px-8 py-4 border border-ui text-txt-primary rounded-full font-semibold hover:bg-hover-ui transition-colors"
+                onClick={() => scrollToSection('#services')}
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-4 border-2 border-border text-txt-primary rounded-lg font-semibold text-sm sm:text-base hover:bg-hover hover:border-primary/30 transition-all"
               >
-                {content[language].ctaContact}
+                {content[language].ctaSecondary}
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-6 pt-4 text-sm text-txt-secondary">
-              <div className="flex items-center gap-3">
-                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-md">
-                  <Phone size={20} className="text-white" />
-                </span>
-                <a href="tel:+15144627623" className="hover:text-txt-primary transition-colors">
-                  (514) 462-7623
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-md">
-                  <Mail size={20} className="text-white" />
-                </span>
-                <a
-                  href="mailto:fmimb@yahoo.fr"
-                  className="hover:text-txt-primary transition-colors"
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8 border-t border-border">
+              {content[language].stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="text-center sm:text-left"
                 >
-                  fmimb@yahoo.fr
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="w-12 h-12 rounded-full bg-brand-red flex items-center justify-center shadow-md">
-                  <MapPin size={20} className="text-white" />
-                </span>
-                <span>Montréal, Québec, Canada</span>
-              </div>
+                  <p className="text-lg sm:text-2xl lg:text-3xl font-heading font-bold text-primary">{stat.value}</p>
+                  <p className="text-xs sm:text-sm text-txt-secondary mt-0.5 sm:mt-1">{stat.label}</p>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="relative">
-            <div className="bg-surface border border-ui rounded-[32px] p-10 shadow-2xl">
-              <div className="flex items-center gap-6">
-                <div className="w-28 h-28 rounded-full border-2 border-brand-red overflow-hidden shadow-xl">
-                  <img
-                    src={AdvisorPhoto}
-                    alt="Mimb Franklin"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
+          {/* Consultant Card */}
+          <motion.div 
+            className="relative order-1 lg:order-2"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="bg-surface border border-border rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-8 shadow-corporate-lg">
+              {/* Photo & Info */}
+              <div className="flex items-center gap-3 sm:gap-5 pb-4 sm:pb-6 border-b border-border">
+                <div className="w-14 h-14 sm:w-16 md:w-20 sm:h-16 md:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-muted flex items-center justify-center border-2 border-primary/20 flex-shrink-0">
+                  <img src={franclinPhoto} alt={consultantName} className="w-full h-full object-cover" />
                 </div>
-                <div>
-                  <p className="text-2xl font-semibold text-txt-primary">
-                    {content[language].advisor}
-                  </p>
-                  <p className="text-brand-red tracking-[0.4em] text-xs uppercase">
-                    {content[language].advisorRole}
-                  </p>
+                <div className="min-w-0">
+                  <h3 className="text-base sm:text-lg lg:text-xl font-heading font-semibold text-txt-primary truncate">{consultantName}</h3>
+                  <p className="text-primary font-medium text-xs sm:text-sm mt-0.5 sm:mt-1">{consultantTitle}</p>
                 </div>
               </div>
 
-              <div className="mt-10 space-y-4">
-                {content[language].stats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex items-center justify-between rounded-2xl bg-surface border border-ui px-6 py-4 hover:shadow-md transition-all hover:bg-hover-ui"
-                  >
-                    <p className="text-3xl font-semibold text-brand-red">{stat.value}</p>
-                    <p className="text-sm text-txt-secondary text-right">{stat.label}</p>
+              {/* Credentials */}
+              <div className="py-4 sm:py-6 space-y-2 sm:space-y-3 border-b border-border">
+                {content[language].credentials.map((cred) => (
+                  <div key={cred.text} className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <cred.icon size={14} className="text-primary sm:w-4 sm:h-4" />
+                    </div>
+                    <span className="text-txt-primary font-medium text-sm sm:text-base">{cred.text}</span>
                   </div>
                 ))}
               </div>
+
+              {/* Contact Info */}
+              <div className="pt-4 sm:pt-6 space-y-3 sm:space-y-4">
+                <a href={`tel:${contactPhone.replace(/[^+\d]/g, '')}`} className="flex items-center gap-2 sm:gap-3 text-txt-secondary hover:text-txt-primary transition-colors">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                    <Phone size={14} className="text-primary sm:w-[18px] sm:h-[18px]" />
+                  </div>
+                  <span className="font-medium text-sm sm:text-base">{contactPhone}</span>
+                </a>
+                <div className="flex items-center gap-2 sm:gap-3 text-txt-secondary">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                    <MapPin size={14} className="text-primary sm:w-[18px] sm:h-[18px]" />
+                  </div>
+                  <span className="font-medium text-sm sm:text-base">{contactAddress}</span>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <button
+                onClick={() => scrollToSection('#appointment')}
+                className="w-full mt-4 sm:mt-6 py-3 sm:py-4 bg-primary text-primary-foreground rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base hover:bg-primary/90 transition-all flex items-center justify-center gap-2"
+              >
+                {language === 'fr' ? 'Prendre rendez-vous' : 'Book Appointment'}
+                <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" />
+              </button>
             </div>
-            <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-brand-red/20 blur-2xl opacity-70" />
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-brand-light/20 blur-3xl opacity-70" />
-          </div>
+
+            {/* Decorative elements */}
+            <div className="absolute -top-4 -right-4 w-16 sm:w-24 h-16 sm:h-24 bg-primary/10 rounded-full blur-2xl" />
+            <div className="absolute -bottom-4 -left-4 w-20 sm:w-32 h-20 sm:h-32 bg-accent/10 rounded-full blur-2xl" />
+          </motion.div>
         </div>
       </div>
     </section>

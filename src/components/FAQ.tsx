@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FAQProps {
   language: 'fr' | 'en';
@@ -10,120 +11,57 @@ export default function FAQ({ language }: FAQProps) {
 
   const content = {
     fr: {
+      sectionLabel: 'FAQ',
       title: 'Questions fréquentes',
       subtitle: "Réponses aux questions les plus courantes sur l'immigration",
       faqs: [
-        {
-          question: 'Combien de temps prend une demande de résidence permanente?',
-          answer:
-            "Le délai varie selon le programme choisi. Pour l'Entrée Express, le traitement prend généralement 6 mois. Pour d'autres programmes, cela peut prendre de 12 à 24 mois. Je vous guide pour choisir le programme le plus rapide adapté à votre profil.",
-        },
-        {
-          question: "Ai-je besoin d'une offre d'emploi pour immigrer au Canada?",
-          answer:
-            "Pas nécessairement. Certains programmes comme l'Entrée Express (catégorie fédérale des travailleurs qualifiés) ne requièrent pas d'offre d'emploi. Cependant, une offre validée peut augmenter vos points et accélérer votre candidature.",
-        },
-        {
-          question: 'Quels sont vos honoraires?',
-          answer:
-            "Les honoraires varient selon le type de service et la complexité du dossier. Je propose une consultation initiale pour évaluer votre situation et vous fournir un devis détaillé. Contactez-moi pour plus d'informations.",
-        },
-        {
-          question: 'Puis-je travailler pendant le traitement de ma demande?',
-          answer:
-            "Cela dépend de votre statut actuel. Si vous êtes au Canada avec un permis de travail valide, vous pouvez continuer à travailler. Pour certaines demandes, un permis de travail ouvert peut être obtenu pendant le traitement.",
-        },
-        {
-          question: 'Comment puis-je vérifier que vous êtes un consultant réglementé?',
-          answer:
-            "Je suis membre en règle du Collège des consultants en immigration et en citoyenneté (CCIC). Vous pouvez vérifier mon statut sur le site officiel du CCIC. En tant que consultant réglementé, je suis autorisé à représenter mes clients devant IRCC.",
-        },
-        {
-          question: 'Offrez-vous des services en anglais et en français?',
-          answer:
-            'Oui, absolument! Je suis bilingue et offre tous mes services en français et en anglais pour mieux servir les clients francophones et anglophones.',
-        },
+        { question: 'Combien de temps prend une demande de résidence permanente?', answer: "Le délai varie selon le programme choisi. Pour l'Entrée Express, le traitement prend généralement 6 mois. Pour d'autres programmes, cela peut prendre de 12 à 24 mois." },
+        { question: "Ai-je besoin d'une offre d'emploi pour immigrer au Canada?", answer: "Pas nécessairement. Certains programmes comme l'Entrée Express ne requièrent pas d'offre d'emploi. Cependant, une offre validée peut augmenter vos points." },
+        { question: 'Quels sont vos honoraires?', answer: "Les honoraires varient selon le type de service et la complexité du dossier. Je propose une consultation initiale pour évaluer votre situation et vous fournir un devis détaillé." },
+        { question: 'Comment puis-je vérifier que vous êtes un consultant réglementé?', answer: "Vous pouvez vérifier mon statut sur le registre public du CICC. C'est votre garantie que je suis autorisé à pratiquer." },
+        { question: 'Offrez-vous des services en anglais et en français?', answer: "Oui! Je suis parfaitement bilingue et peux vous accompagner dans la langue de votre choix." },
       ],
     },
     en: {
+      sectionLabel: 'FAQ',
       title: 'Frequently Asked Questions',
       subtitle: 'Answers to the most common questions about immigration',
       faqs: [
-        {
-          question: 'How long does a permanent residence application take?',
-          answer:
-            'Processing times vary by program. For Express Entry, processing typically takes 6 months. For other programs, it can take 12 to 24 months. I guide you to choose the fastest program suited to your profile.',
-        },
-        {
-          question: 'Do I need a job offer to immigrate to Canada?',
-          answer:
-            'Not necessarily. Some programs like Express Entry (Federal Skilled Worker category) do not require a job offer. However, a validated job offer can increase your points and accelerate your application.',
-        },
-        {
-          question: 'What are your fees?',
-          answer:
-            'Fees vary depending on the type of service and complexity of the case. I offer an initial consultation to assess your situation and provide you with a detailed quote. Contact me for more information.',
-        },
-        {
-          question: 'Can I work while my application is being processed?',
-          answer:
-            'It depends on your current status. If you are in Canada with a valid work permit, you can continue working. For certain applications, an open work permit can be obtained during processing.',
-        },
-        {
-          question: 'How can I verify that you are a regulated consultant?',
-          answer:
-            'I am a member in good standing of the College of Immigration and Citizenship Consultants (CICC). You can verify my status on the official CICC website. As a regulated consultant, I am authorized to represent my clients before IRCC.',
-        },
-        {
-          question: 'Do you offer services in English and French?',
-          answer:
-            'Yes, absolutely! I am bilingual and offer all my services in French and English to better serve French and English-speaking clients.',
-        },
+        { question: 'How long does a permanent residence application take?', answer: 'The timeframe varies depending on the program. For Express Entry, processing typically takes 6 months. For other programs, it can take 12 to 24 months.' },
+        { question: 'Do I need a job offer to immigrate to Canada?', answer: 'Not necessarily. Some programs like Express Entry do not require a job offer. However, a validated offer can increase your points.' },
+        { question: 'What are your fees?', answer: 'Fees vary depending on the type of service and complexity of the file. I offer an initial consultation to assess your situation and provide a detailed quote.' },
+        { question: 'How can I verify that you are a regulated consultant?', answer: "You can verify my status on the CICC public registry. This is your guarantee that I am authorized to practice." },
+        { question: 'Do you offer services in English and French?', answer: 'Yes! I am fully bilingual and can assist you in your preferred language.' },
       ],
     },
   };
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <section id="faq" className="py-24 bg-surface/95 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-main/95 to-brand-red/20 opacity-90" />
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.4em] text-txt-secondary mb-3">
-            {language === 'fr' ? 'Clarté' : 'Clarity'}
-          </p>
-          <h2 className="text-4xl font-bold text-txt-primary mb-4">
-            {content[language].title}
-          </h2>
-          <p className="text-xl text-txt-secondary">{content[language].subtitle}</p>
-        </div>
+    <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-background">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div className="text-center mb-8 sm:mb-10 lg:mb-12" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-3 sm:mb-4 border border-primary/20">
+            {content[language].sectionLabel}
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-txt-primary mb-3 sm:mb-4">{content[language].title}</h2>
+          <p className="text-txt-secondary text-sm sm:text-base lg:text-lg px-4">{content[language].subtitle}</p>
+        </motion.div>
 
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-3">
           {content[language].faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="border border-ui rounded-2xl overflow-hidden bg-surface shadow-sm hover:shadow-md transition-shadow"
-            >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-4 flex justify-between items-center text-left text-txt-primary hover:bg-hover-ui transition-colors rounded-t-2xl"
-              >
-                <span className="font-semibold">{faq.question}</span>
-                {openIndex === index ? (
-                  <ChevronUp className="text-brand-red flex-shrink-0" size={24} />
-                ) : (
-                  <ChevronDown className="text-txt-secondary flex-shrink-0" size={24} />
-                )}
+            <motion.div key={index} className="bg-surface rounded-lg sm:rounded-xl border border-border overflow-hidden" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05 }}>
+              <button onClick={() => setOpenIndex(openIndex === index ? null : index)} className="w-full flex items-center justify-between p-4 sm:p-5 text-left">
+                <span className="font-medium text-txt-primary pr-3 sm:pr-4 text-sm sm:text-base">{faq.question}</span>
+                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 text-txt-secondary flex-shrink-0 transition-transform ${openIndex === index ? 'rotate-180' : ''}`} />
               </button>
-              {openIndex === index && (
-                <div className="px-6 py-4 border-t border-ui bg-surface/80">
-                  <p className="text-txt-secondary leading-relaxed">{faq.answer}</p>
-                </div>
-              )}
-            </div>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+                    <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-txt-secondary leading-relaxed text-sm sm:text-base">{faq.answer}</div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
       </div>

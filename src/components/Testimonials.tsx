@@ -1,150 +1,129 @@
-﻿import { useEffect, useState } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import type { Testimonial } from '../types';
+import { useState } from 'react';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface TestimonialsProps {
   language: 'fr' | 'en';
 }
 
 export default function Testimonials({ language }: TestimonialsProps) {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
 
   const content = {
     fr: {
-      title: 'Témoignages de nos clients',
-      subtitle: 'Découvrez les expériences de ceux qui ont réalisé leur rêve canadien',
-      loading: 'Chargement des témoignages...',
+      sectionLabel: 'Témoignages',
+      title: 'La confiance de nos clients',
+      subtitle: 'Découvrez les expériences de ceux qui ont réalisé leur projet canadien.',
     },
     en: {
-      title: 'Client Testimonials',
-      subtitle: 'Discover the experiences of those who achieved their Canadian dream',
-      loading: 'Loading testimonials...',
+      sectionLabel: 'Testimonials',
+      title: 'Our clients trust us',
+      subtitle: 'Discover the experiences of those who achieved their Canadian dream.',
     },
   };
 
-  useEffect(() => {
-    fetchTestimonials();
-  }, []);
+  const testimonials = [
+    {
+      id: 1,
+      name: 'Marie Dubois',
+      country: 'France',
+      service: language === 'fr' ? 'Résidence Permanente' : 'Permanent Residence',
+      content: language === 'fr' 
+        ? "Service exceptionnel! M. Mimb m'a guidé tout au long du processus de résidence permanente. Grâce à son expertise, ma famille et moi vivons maintenant à Montréal."
+        : "Exceptional service! Mr. Mimb guided me throughout the permanent residence process. Thanks to his expertise, my family and I now live in Montreal.",
+      rating: 5,
+    },
+    {
+      id: 2,
+      name: 'Jean-Pierre Kamga',
+      country: 'Cameroun',
+      service: language === 'fr' ? 'Permis de travail' : 'Work Permit',
+      content: language === 'fr'
+        ? "Professionnel, disponible et très compétent. M. Mimb a traité mon dossier avec une rigueur exemplaire. Mon permis de travail a été approuvé en un temps record."
+        : "Professional, available and very competent. Mr. Mimb handled my file with exemplary rigor. My work permit was approved in record time.",
+      rating: 5,
+    },
+    {
+      id: 3,
+      name: 'Sofia Martinez',
+      country: 'Mexique',
+      service: language === 'fr' ? 'Permis d\'études' : 'Study Permit',
+      content: language === 'fr'
+        ? "Grâce à l'accompagnement de M. Mimb, j'ai pu obtenir mon permis d'études et réaliser mon rêve d'étudier au Canada. Un consultant de confiance!"
+        : "Thanks to Mr. Mimb's support, I was able to obtain my study permit and fulfill my dream of studying in Canada. A trusted consultant!",
+      rating: 5,
+    },
+  ];
 
-  const fetchTestimonials = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('testimonials')
-        .select('*')
-        .eq('is_approved', true)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setTestimonials(data || []);
-    } catch (error) {
-      console.error('Error fetching testimonials:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  if (isLoading) {
-    return (
-      <section className="py-24 bg-surface/95">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-txt-secondary">{content[language].loading}</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (testimonials.length === 0) {
-    return null;
-  }
+  const nextTestimonial = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  const prevTestimonial = () => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section id="testimonials" className="py-24 bg-surface/95 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-main/95 to-brand-red/20 opacity-90" />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.4em] text-txt-secondary mb-3">
-            {language === 'fr' ? 'Confiance' : 'Trust'}
-          </p>
-          <h2 className="text-4xl font-bold text-txt-primary mb-4">
+    <section id="testimonials" className="py-16 sm:py-20 lg:py-24 bg-section-gradient">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          className="text-center mb-8 sm:mb-10 lg:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-3 sm:mb-4 border border-primary/20">
+            {content[language].sectionLabel}
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-semibold text-txt-primary mb-3 sm:mb-4">
             {content[language].title}
           </h2>
-          <p className="text-xl text-txt-secondary">{content[language].subtitle}</p>
-        </div>
+          <p className="text-txt-secondary text-sm sm:text-base lg:text-lg px-4">{content[language].subtitle}</p>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-surface border border-ui rounded-[32px] p-8 md:p-12 relative shadow-xl">
-            <div className="flex justify-center mb-6 gap-1">
-              {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <Star key={i} className="text-brand-red fill-brand-red" size={24} />
-              ))}
-            </div>
-
-            <blockquote className="text-xl text-txt-primary leading-relaxed mb-8 text-center italic">
-              "{testimonials[currentIndex].testimonial_text}"
-            </blockquote>
-
-            <div className="text-center">
-              <p className="font-bold text-txt-primary text-lg">
-                {testimonials[currentIndex].client_name}
+        <div className="relative max-w-4xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3 }}
+              className="bg-surface rounded-xl sm:rounded-2xl p-5 sm:p-8 lg:p-12 border border-border shadow-card"
+            >
+              <Quote className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-primary/20 mb-4 sm:mb-5 lg:mb-6" />
+              <p className="text-base sm:text-lg lg:text-2xl text-txt-primary leading-relaxed mb-5 sm:mb-6 lg:mb-8">
+                "{testimonials[currentIndex].content}"
               </p>
-              <p className="text-txt-secondary">
-                {testimonials[currentIndex].client_country}
-              </p>
-              <p className="text-txt-secondary/70 text-sm mt-1">
-                {testimonials[currentIndex].service_type}
-              </p>
-            </div>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                <div>
+                  <p className="font-heading font-semibold text-base sm:text-lg text-txt-primary">
+                    {testimonials[currentIndex].name}
+                  </p>
+                  <p className="text-txt-secondary text-xs sm:text-sm">{testimonials[currentIndex].country}</p>
+                  <span className="inline-block mt-1.5 sm:mt-2 px-2 sm:px-3 py-0.5 sm:py-1 bg-primary/10 text-primary text-[10px] sm:text-xs font-semibold rounded-md">
+                    {testimonials[currentIndex].service}
+                  </span>
+                </div>
+                <div className="flex gap-0.5 sm:gap-1">
+                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-accent fill-current" />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-            {testimonials.length > 1 && (
-              <>
-                <button
-                  onClick={prevTestimonial}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-brand-red text-white rounded-full hover:scale-110 transition-transform shadow-md"
-                  aria-label="Previous testimonial"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <button
-                  onClick={nextTestimonial}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-brand-red text-white rounded-full hover:scale-110 transition-transform shadow-md"
-                  aria-label="Next testimonial"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </>
-            )}
-          </div>
-
-          {testimonials.length > 1 && (
-            <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-3 sm:gap-4 mt-6 sm:mt-8">
+            <button onClick={prevTestimonial} className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-surface border border-border flex items-center justify-center text-txt-primary hover:bg-hover transition-colors">
+              <ChevronLeft size={18} className="sm:w-5 sm:h-5" />
+            </button>
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentIndex
-                      ? 'bg-brand-red w-8'
-                      : 'bg-ui hover:bg-hover-ui'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
+                <button key={index} onClick={() => setCurrentIndex(index)} className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-colors ${index === currentIndex ? 'bg-primary' : 'bg-border'}`} />
               ))}
             </div>
-          )}
+            <button onClick={nextTestimonial} className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-surface border border-border flex items-center justify-center text-txt-primary hover:bg-hover transition-colors">
+              <ChevronRight size={18} className="sm:w-5 sm:h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
